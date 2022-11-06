@@ -88,10 +88,9 @@ public class UserRepository {
         Optional<User> result = Optional.empty();
         try {
             session.beginTransaction();
-            User user = session.createQuery("from User u WHERE u.id = :fId", User.class)
+            result = session.createQuery("from User u WHERE u.id = :fId", User.class)
                     .setParameter("fId", id)
-                    .uniqueResult();
-            result = Optional.of(user);
+                    .uniqueResultOptional();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -126,10 +125,9 @@ public class UserRepository {
         session.beginTransaction();
         Optional<User> result = Optional.empty();
         try {
-            User user = session.createQuery("from User u WHERE u.login = :fLogin", User.class)
+            result = session.createQuery("from User u WHERE u.login = :fLogin", User.class)
                     .setParameter("fLogin", login)
-                    .uniqueResult();
-            result = Optional.of(user);
+                    .uniqueResultOptional();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
