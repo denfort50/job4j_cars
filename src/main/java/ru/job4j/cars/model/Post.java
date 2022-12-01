@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,5 +32,5 @@ public class Post {
             inverseJoinColumns = {
                     @JoinColumn(name = "user_id") }
     )
-    private List<User> participates;
+    private List<User> participates = new ArrayList<>();
 }
