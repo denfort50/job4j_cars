@@ -14,10 +14,13 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
+    @Column(name = "text")
     private String text;
 
+    @Column(name = "created")
     private Timestamp created;
 
     @ManyToOne
@@ -33,4 +36,8 @@ public class Post {
                     @JoinColumn(name = "user_id") }
     )
     private List<User> participates = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "car_id")
+    private Car car;
 }

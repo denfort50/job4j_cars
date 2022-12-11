@@ -1,21 +1,25 @@
-package ru.job4j.cars.repository;
+package ru.job4j.cars.repository.classes;
 
 import lombok.AllArgsConstructor;
 import ru.job4j.cars.model.User;
+import ru.job4j.cars.repository.interfaces.CrudRepository;
+import ru.job4j.cars.repository.interfaces.UserRepository;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @AllArgsConstructor
-public class UserRepository {
+public class HibernateUserRepository implements UserRepository {
+
     private final CrudRepository crudRepository;
 
     private static final String DELETE = "DELETE User u WHERE u.id = :fId";
-    private static final String FIND_ALL_ORDER_BY_ID = "from User u ORDER BY u.id";
-    private static final String FIND_BY_ID = "from User u WHERE u.id = :fId";
-    private static final String FIND_BY_LIKE_LOGIN = "from User u WHERE u.login LIKE :fKey";
-    private static final String FIND_BY_LOGIN = "from User u WHERE u.login = :fLogin";
+    private static final String FIND_ALL_ORDER_BY_ID = "FROM User u JOIN FETCH u.priceHistory ORDER BY u.id";
+    private static final String FIND_BY_ID = "FROM User u JOIN FETCH u.priceHistory WHERE u.id = :fId";
+    private static final String FIND_BY_LIKE_LOGIN = "FROM User u JOIN FETCH u.priceHistory WHERE u.login LIKE :fKey";
+    private static final String FIND_BY_LOGIN = "FROM User u JOIN FETCH u.priceHistory WHERE u.login = :fLogin";
+    private static final String DELETE_ALL = "DELETE User";
 
     /**
      * Сохранить в базе.
@@ -40,7 +44,7 @@ public class UserRepository {
      * @param userId ID
      */
     public void delete(int userId) {
-        crudRepository.run(DELETE, Map.of("fId", userId));
+        crudRepository.queryAndGetBoolean(DELETE, Map.of("fId", userId));
     }
 
     /**
@@ -48,7 +52,7 @@ public class UserRepository {
      * @return список пользователей.
      */
     public List<User> findAllOrderById() {
-        return crudRepository.query(FIND_ALL_ORDER_BY_ID, User.class);
+        return crudRepository.queryAndGetList(FIND_ALL_ORDER_BY_ID, User.class);
     }
 
     /**
@@ -56,7 +60,7 @@ public class UserRepository {
      * @return пользователь.
      */
     public Optional<User> findById(int userId) {
-        return crudRepository.optional(FIND_BY_ID, User.class, Map.of("fId", userId));
+        return crudRepository.queryAndGetOptional(FIND_BY_ID, User.class, Map.of("fId", userId));
     }
 
     /**
@@ -65,7 +69,7 @@ public class UserRepository {
      * @return список пользователей.
      */
     public List<User> findByLikeLogin(String key) {
-        return crudRepository.query(FIND_BY_LIKE_LOGIN, User.class, Map.of("fKey", "%" + key + "%"));
+        return crudRepository.queryAndGetList(FIND_BY_LIKE_LOGIN, User.class, Map.of("fKey", "%" + key + "%"));
     }
 
     /**
@@ -74,6 +78,11 @@ public class UserRepository {
      * @return Optional or user.
      */
     public Optional<User> findByLogin(String login) {
-        return crudRepository.optional(FIND_BY_LOGIN, User.class, Map.of("fLogin", login));
+        return crudRepository.queryAndGetOptional(FIND_BY_LOGIN, User.class, Map.of("fLogin", login));
+    }
+
+    @Override
+    public void deleteAll() {
+        crudRepository.run(DELETE_ALL);
     }
 }
