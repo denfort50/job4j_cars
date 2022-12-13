@@ -40,4 +40,7 @@ public class Post {
     @OneToOne
     @JoinColumn(name = "car_id")
     private Car car;
+
+    @Column(name = "photo")
+    private byte[] photo;
 }
