@@ -1,6 +1,6 @@
 package ru.job4j.cars.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -8,6 +8,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "car")
+@AllArgsConstructor
+@NoArgsConstructor
+@RequiredArgsConstructor
 @Data
 public class Car {
 
@@ -15,11 +18,13 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "brand")
-    private String brand;
+    @Column(name = "name")
+    @NonNull
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
+    @NonNull
     private Engine engine;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

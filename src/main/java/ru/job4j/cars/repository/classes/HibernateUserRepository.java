@@ -15,10 +15,10 @@ public class HibernateUserRepository implements UserRepository {
     private final CrudRepository crudRepository;
 
     private static final String DELETE = "DELETE User u WHERE u.id = :fId";
-    private static final String FIND_ALL_ORDER_BY_ID = "FROM User u JOIN FETCH u.priceHistory ORDER BY u.id";
-    private static final String FIND_BY_ID = "FROM User u JOIN FETCH u.priceHistory WHERE u.id = :fId";
-    private static final String FIND_BY_LIKE_LOGIN = "FROM User u JOIN FETCH u.priceHistory WHERE u.login LIKE :fKey";
-    private static final String FIND_BY_LOGIN = "FROM User u JOIN FETCH u.priceHistory WHERE u.login = :fLogin";
+    private static final String FIND_ALL_ORDER_BY_ID = "FROM User u ORDER BY u.id";
+    private static final String FIND_BY_ID = "FROM User u WHERE u.id = :fId";
+    private static final String FIND_BY_LIKE_LOGIN = "FROM User u WHERE u.login LIKE :fKey";
+    private static final String FIND_BY_LOGIN = "FROM User u WHERE u.login = :fLogin";
     private static final String DELETE_ALL = "DELETE User";
 
     /**

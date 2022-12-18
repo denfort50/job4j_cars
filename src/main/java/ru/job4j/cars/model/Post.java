@@ -1,6 +1,6 @@
 package ru.job4j.cars.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -9,6 +9,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "auto_post")
+@AllArgsConstructor
+@NoArgsConstructor
+@RequiredArgsConstructor
 @Data
 public class Post {
 
@@ -18,13 +21,16 @@ public class Post {
     private int id;
 
     @Column(name = "text")
+    @NonNull
     private String text;
 
     @Column(name = "created")
+    @NonNull
     private Timestamp created;
 
     @ManyToOne
     @JoinColumn(name = "auto_user_id")
+    @NonNull
     private User user;
 
     @ManyToMany
@@ -37,8 +43,13 @@ public class Post {
     )
     private List<User> participates = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_id")
+    private List<PriceHistory> priceHistory;
+
     @OneToOne
     @JoinColumn(name = "car_id")
+    @NonNull
     private Car car;
 
     @Column(name = "photo")

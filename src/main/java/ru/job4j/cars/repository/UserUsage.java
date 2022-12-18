@@ -16,6 +16,7 @@ public class UserUsage {
                 .buildMetadata().buildSessionFactory()) {
             var crudRepository = new CrudRepositoryImpl(sf);
             var userRepository = new HibernateUserRepository(crudRepository);
+            userRepository.deleteAll();
             var user = new User();
             user.setLogin("admin");
             user.setPassword("admin");
