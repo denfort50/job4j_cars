@@ -1,26 +1,21 @@
 package ru.job4j.cars.repository;
 
-import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.job4j.cars.config.TestHibernateConfig;
 import ru.job4j.cars.model.User;
-import ru.job4j.cars.repository.classes.CrudRepositoryImpl;
-import ru.job4j.cars.repository.classes.HibernateUserRepository;
-import ru.job4j.cars.repository.interfaces.CrudRepository;
-import ru.job4j.cars.repository.interfaces.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.*;
-import static ru.job4j.cars.util.SessionFactoryLoader.getSessionFactory;
 
 class HibernateUserRepositoryTest {
 
-    private final SessionFactory sessionFactory = getSessionFactory();
-    private final CrudRepository crudRepository = new CrudRepositoryImpl(sessionFactory);
+    private final TestHibernateConfig testHibernateConfig = new TestHibernateConfig();
+    private final CrudRepository crudRepository = testHibernateConfig.getCrudRepository();
     private final UserRepository userRepository = new HibernateUserRepository(crudRepository);
 
     @BeforeEach

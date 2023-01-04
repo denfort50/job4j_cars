@@ -1,9 +1,7 @@
-package ru.job4j.cars.repository.classes;
+package ru.job4j.cars.repository;
 
 import lombok.AllArgsConstructor;
 import ru.job4j.cars.model.Car;
-import ru.job4j.cars.repository.interfaces.CarRepository;
-import ru.job4j.cars.repository.interfaces.CrudRepository;
 
 import java.util.List;
 import java.util.Map;

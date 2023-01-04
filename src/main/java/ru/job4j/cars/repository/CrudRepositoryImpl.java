@@ -1,11 +1,10 @@
-package ru.job4j.cars.repository.classes;
+package ru.job4j.cars.repository;
 
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import ru.job4j.cars.repository.interfaces.CrudRepository;
 
 import java.util.List;
 import java.util.Map;

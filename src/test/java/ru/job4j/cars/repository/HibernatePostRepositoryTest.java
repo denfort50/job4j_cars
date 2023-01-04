@@ -1,15 +1,12 @@
 package ru.job4j.cars.repository;
 
-import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.job4j.cars.config.TestHibernateConfig;
 import ru.job4j.cars.model.Car;
 import ru.job4j.cars.model.Engine;
 import ru.job4j.cars.model.Post;
 import ru.job4j.cars.model.User;
-import ru.job4j.cars.repository.classes.*;
-import ru.job4j.cars.repository.interfaces.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -18,12 +15,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.*;
-import static ru.job4j.cars.util.SessionFactoryLoader.getSessionFactory;
 
 class HibernatePostRepositoryTest {
 
-    private final SessionFactory sessionFactory = getSessionFactory();
-    private final CrudRepository crudRepository = new CrudRepositoryImpl(sessionFactory);
+    private final TestHibernateConfig testHibernateConfig = new TestHibernateConfig();
+    private final CrudRepository crudRepository = testHibernateConfig.getCrudRepository();
     private final PostRepository postRepository = new HibernatePostRepository(crudRepository);
     private final UserRepository userRepository = new HibernateUserRepository(crudRepository);
     private final CarRepository carRepository = new HibernateCarRepository(crudRepository);

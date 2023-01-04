@@ -1,10 +1,7 @@
-package ru.job4j.cars.repository.classes;
+package ru.job4j.cars.repository;
 
 import lombok.AllArgsConstructor;
-import ru.job4j.cars.model.Car;
 import ru.job4j.cars.model.Post;
-import ru.job4j.cars.repository.interfaces.CrudRepository;
-import ru.job4j.cars.repository.interfaces.PostRepository;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
