@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>ToDo</title>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">ToDo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" th:href="@{/tasks}">Все задания</a>
+                <a class="nav-item nav-link" th:href="@{/tasks/undone}">Новые задания</a>
+                <a class="nav-item nav-link" th:href="@{/tasks/done}">Выполненные задания</a>
+                <a class="nav-item nav-link" th:href="@{/tasks/formAddTask}">Добавить задание</a>
+                <a class="nav-item nav-link" th:if="${user.username == 'Гость'}" th:href="@{/users/loginPage}">
+                    <span th:text="${user.username}"></span>
+                    <span> | Войти</span>
+                </a>
+                <a class="nav-item nav-link" th:if="${user.username != 'Гость'}" th:href="@{/users/logout}">
+                    <span th:text="${user.username}"></span>
+                    <span> | Выйти</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="row pt-3">
+        <div class="card" style="width: 100%">
+            <div class="card-header">
+                <h4>Задание</h4>
+            </div>
+            <div class="card-body">
+                <div>ID: <span th:text="${task.id}"></span></div>
+                <div>Название: <span th:text="${task.title}"></span></div>
+                <div>Описание: <span th:text="${task.description}"></span></div>
+                <div>Дата создания: <span th:text="${#temporals.format(task.created, 'dd-MM-yyyy HH:mm')}"></span></div>
+                <div>Статус:
+                    <span th:if="${task.done}">
+                        <i class="fa fa-check-square-o"></i>
+                    </span>
+                    <span th:if="${!task.done}">
+                        <i class="fa fa-square-o"></i>
+                    </span>
+                </div>
+                <div class="row">
+                    <div class="card">
+                        <form th:action="@{/tasks/completeTask}" method="POST" th:object="${task}" enctype="multipart/form-data">
+                            <span th:if="${!task.done}">
+                                <input type="hidden" name="id" th:field="*{id}"/>
+                                <input type="hidden" name="title" th:field="*{title}"/>
+                                <input type="hidden" name="description" th:field="*{description}"/>
+                                <input type="hidden" name="created" th:field="*{created}"/>
+                                <button type="submit" class="btn btn-success">Завершить</button>
+                            </span>
+                        </form>
+                    </div>
+                    <div class="card">
+                        <form th:action="@{|/tasks/formModifyTask/${task.id}|}" method="GET" th:object="${task}" enctype="multipart/form-data">
+                            <span th:if="${!task.done}">
+                                <button type="submit" class="btn btn-info">Изменить</button>
+                            </span>
+                        </form>
+                    </div>
+                    <div class="card">
+                        <form th:action="@{/tasks/deleteTask}" method="POST" th:object="${task}" enctype="multipart/form-data">
+                            <input type="hidden" name="id" th:field="*{id}"/>
+                            <input type="hidden" name="title" th:field="*{title}"/>
+                            <input type="hidden" name="description" th:field="*{description}"/>
+                            <input type="hidden" name="created" th:field="*{created}"/>
+                            <button type="submit" class="btn btn-warning">Удалить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
