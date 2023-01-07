@@ -1,0 +1,10 @@
+INSERT INTO bodies (name) VALUES ('седан');
+INSERT INTO bodies (name) VALUES ('хэтчбэк');
+INSERT INTO bodies (name) VALUES ('лифтбэк');
+INSERT INTO bodies (name) VALUES ('универсал');
+INSERT INTO bodies (name) VALUES ('минивэн');
+INSERT INTO bodies (name) VALUES ('купэ');
+INSERT INTO bodies (name) VALUES ('пикап');
+INSERT INTO bodies (name) VALUES ('кабриолет');
+INSERT INTO bodies (name) VALUES ('кроссовер');
+INSERT INTO bodies (name) VALUES ('внедорожник');

@@ -1,5 +1,0 @@
-CREATE TABLE IF NOT EXISTS driver(
-    id SERIAL PRIMARY KEY,
-    name VARCHAR NOT NULL,
-    user_id INT NOT NULL REFERENCES auto_user(id)
-);
