@@ -29,10 +29,10 @@ class HibernateCarRepositoryTest {
     void whenCreateThenSuccess() {
         Engine engine = new Engine("TDI 3.0");
         engineRepository.create(engine);
-        Car car = new Car("Audi", engine);
+        Car car = new Car("Audi", "S7", "Sportback", engine);
         carRepository.create(car);
         Car carFromDB = carRepository.findById(car.getId()).orElseThrow();
-        assertThat(carFromDB.getName()).isEqualTo(car.getName());
+        assertThat(carFromDB.getBrand()).isEqualTo(car.getBrand());
     }
 
     @Test
@@ -41,9 +41,9 @@ class HibernateCarRepositoryTest {
         Engine engine2 = new Engine("TFSI 5.0");
         engineRepository.create(engine1);
         engineRepository.create(engine2);
-        Car car = new Car("Audi", engine1);
+        Car car = new Car("Audi", "S7", "Sportback", engine1);
         carRepository.create(car);
-        Car updCar = new Car("Audi", engine2);
+        Car updCar = new Car("Audi", "S7", "Sportback", engine2);
         updCar.setId(car.getId());
         carRepository.update(updCar);
         Car carFromDB = carRepository.findById(car.getId()).orElseThrow();
@@ -54,7 +54,7 @@ class HibernateCarRepositoryTest {
     void whenDeleteThenSuccess() {
         Engine engine = new Engine("TDI 3.0");
         engineRepository.create(engine);
-        Car car = new Car("Audi", engine);
+        Car car = new Car("Audi", "S7", "Sportback", engine);
         carRepository.create(car);
         carRepository.delete(car.getId());
         Optional<Car> carFromDB = carRepository.findById(car.getId());
@@ -67,13 +67,13 @@ class HibernateCarRepositoryTest {
         Engine engine2 = new Engine("2JZ-GTE");
         engineRepository.create(engine1);
         engineRepository.create(engine2);
-        Car car1 = new Car("Audi", engine1);
-        Car car2 = new Car("Nissan", engine2);
+        Car car1 = new Car("Audi", "S7", "Sportback", engine1);
+        Car car2 = new Car("Nissan", "GT-R", "Coupe", engine2);
         carRepository.create(car1);
         carRepository.create(car2);
         List<Car> carsFromDB = carRepository.findAllOrderById();
-        assertThat(carsFromDB.stream().map(Car::getName).collect(Collectors.toList()))
-                .contains(car1.getName(), car2.getName());
+        assertThat(carsFromDB.stream().map(Car::getBrand).collect(Collectors.toList()))
+                .contains(car1.getBrand(), car2.getBrand());
     }
 
     @Test
@@ -82,8 +82,8 @@ class HibernateCarRepositoryTest {
         Engine engine2 = new Engine("2JZ-GTE");
         engineRepository.create(engine1);
         engineRepository.create(engine2);
-        Car car1 = new Car("Audi", engine1);
-        Car car2 = new Car("Nissan", engine2);
+        Car car1 = new Car("Audi", "S7", "Sportback", engine1);
+        Car car2 = new Car("Nissan", "GT-R", "Coupe", engine2);
         carRepository.create(car1);
         carRepository.create(car2);
         carRepository.deleteAll();
