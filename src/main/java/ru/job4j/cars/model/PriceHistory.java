@@ -14,12 +14,9 @@ public class PriceHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "before")
     private int before;
 
-    @Column(name = "after")
     private int after;
 
-    @Column(name = "created")
     private Timestamp created;
 }
