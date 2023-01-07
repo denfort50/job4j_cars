@@ -1,16 +1,18 @@
 package ru.job4j.cars.model;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "drivers")
-@AllArgsConstructor
+@Table(name = "bodies")
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Data
-public class Driver {
+public class Body {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +20,4 @@ public class Driver {
 
     @NonNull
     private String name;
-
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    @NonNull
-    private User user;
 }

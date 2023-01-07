@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "engine")
+@Table(name = "engines")
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Data
@@ -15,7 +15,6 @@ public class Engine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
     @NonNull
     private String name;
 }

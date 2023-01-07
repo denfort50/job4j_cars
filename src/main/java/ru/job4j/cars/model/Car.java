@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "car")
+@Table(name = "cars")
 @AllArgsConstructor
 @NoArgsConstructor
 @RequiredArgsConstructor
@@ -18,17 +18,24 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
     @NonNull
-    private String name;
+    private String brand;
+
+    @NonNull
+    private String model;
 
     @ManyToOne
-    @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
+    @JoinColumn(name = "body_id")
+    @NonNull
+    private Body body;
+
+    @ManyToOne
+    @JoinColumn(name = "engine_id")
     @NonNull
     private Engine engine;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "history_owner",
+    @JoinTable(name = "history_owners",
             joinColumns = {@JoinColumn(name = "car_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "driver_id", nullable = false, updatable = false)})
     private Set<Driver> drivers = new HashSet<>();

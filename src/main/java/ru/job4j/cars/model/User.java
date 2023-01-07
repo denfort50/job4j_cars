@@ -3,10 +3,9 @@ package ru.job4j.cars.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "auto_user")
+@Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
 @RequiredArgsConstructor
@@ -17,11 +16,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "login")
+    @NonNull
+    public String username;
+
     @NonNull
     private String login;
 
-    @Column(name = "password")
     @NonNull
     private String password;
 }

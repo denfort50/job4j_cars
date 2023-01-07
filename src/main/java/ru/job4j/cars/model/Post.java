@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "auto_post")
+@Table(name = "posts")
 @AllArgsConstructor
 @NoArgsConstructor
 @RequiredArgsConstructor
@@ -17,20 +17,22 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 
-    @Column(name = "text")
+    @NonNull
+    private int price;
+
     @NonNull
     private String text;
 
-    @Column(name = "created")
     @NonNull
     private Timestamp created;
 
-    @ManyToOne
-    @JoinColumn(name = "auto_user_id")
     @NonNull
+    private boolean status;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToMany
@@ -43,7 +45,7 @@ public class Post {
     )
     private List<User> participates = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     @JoinColumn(name = "post_id")
     private List<PriceHistory> priceHistory;
 
@@ -52,6 +54,5 @@ public class Post {
     @NonNull
     private Car car;
 
-    @Column(name = "photo")
     private byte[] photo;
 }
