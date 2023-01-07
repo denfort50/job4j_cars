@@ -13,6 +13,8 @@ public interface PostRepository {
 
     void delete(int postId);
 
+    boolean complete(int id);
+
     List<Post> findAllOrderById();
 
     Optional<Post> findById(int postId);

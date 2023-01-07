@@ -1,6 +1,7 @@
 package ru.job4j.cars.repository;
 
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Post;
 
 import java.sql.Timestamp;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @AllArgsConstructor
+@Repository
 public class HibernatePostRepository implements PostRepository {
 
     private final CrudRepository crudRepository;
@@ -20,6 +22,7 @@ public class HibernatePostRepository implements PostRepository {
     private static final String DELETE = "DELETE Post p WHERE p.id = :fId";
     private static final String FIND_ALL_ORDER_BY_ID = "FROM Post p ORDER BY p.id";
     private static final String FIND_BY_ID = "FROM Post p WHERE p.id = :fId";
+    private static final String COMPLETE_POST = "UPDATE Post p SET p.status = :fStatus WHERE p.id = :fId";
     private static final String DELETE_ALL = "DELETE Post";
 
     @Override
@@ -36,6 +39,10 @@ public class HibernatePostRepository implements PostRepository {
     @Override
     public void delete(int postId) {
         crudRepository.queryAndGetBoolean(DELETE, Map.of("fId", postId));
+    }
+
+    public boolean complete(int id) {
+        return crudRepository.queryAndGetBoolean(COMPLETE_POST, Map.of("fDone", true, "fId", id));
     }
 
     @Override
