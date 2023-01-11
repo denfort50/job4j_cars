@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +26,9 @@ public class Post {
     @NonNull
     private String text;
 
-    @NonNull
-    private Timestamp created;
+    private Timestamp created = Timestamp.valueOf(LocalDateTime.now());
 
-    @NonNull
-    private boolean status;
+    private boolean status = false;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -49,7 +48,7 @@ public class Post {
     @JoinColumn(name = "post_id")
     private List<PriceHistory> priceHistory;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "car_id")
     @NonNull
     private Car car;

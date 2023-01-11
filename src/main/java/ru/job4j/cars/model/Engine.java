@@ -16,5 +16,5 @@ public class Engine {
     private int id;
 
     @NonNull
-    private String name;
+    private String index;
 }
