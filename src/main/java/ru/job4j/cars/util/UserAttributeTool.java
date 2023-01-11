@@ -11,8 +11,8 @@ public final class UserAttributeTool {
         throw new UnsupportedOperationException("This is utility class and it cannot be instantiated");
     }
 
-    public static void addAttributeUser(Model model, HttpSession session) {
-        User user = getAttributeUser(session);
+    public static void addAttributeUser(Model model, HttpSession httpSession) {
+        User user = getAttributeUser(httpSession);
         if (user == null) {
             user = new User();
             user.setLogin("Гость");
@@ -20,7 +20,7 @@ public final class UserAttributeTool {
         model.addAttribute("user", user);
     }
 
-    public static User getAttributeUser(HttpSession session) {
-        return (User) session.getAttribute("user");
+    public static User getAttributeUser(HttpSession httpSession) {
+        return (User) httpSession.getAttribute("user");
     }
 }
