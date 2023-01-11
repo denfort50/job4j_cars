@@ -16,12 +16,12 @@ public class HibernatePostRepository implements PostRepository {
 
     private final CrudRepository crudRepository;
 
-    private static final String FIND_ALL_WITHIN_LAST_DAY = "FROM Post p WHERE p.created BETWEEN :fNowMinusOneDay AND :fNow";
-    private static final String FIND_ALL_WITH_PHOTO = "FROM Post p WHERE p.photo IS NOT NULL";
+    private static final String FIND_ALL_WITHIN_LAST_DAY = "FROM Post p JOIN FETCH p.car c WHERE p.created BETWEEN :fNowMinusOneDay AND :fNow";
+    private static final String FIND_ALL_WITH_PHOTO = "FROM Post p JOIN FETCH p.car c WHERE p.photo IS NOT NULL";
     private static final String FIND_ALL_BY_NAME = "FROM Post p JOIN FETCH p.car c WHERE c.name = :fName";
     private static final String DELETE = "DELETE Post p WHERE p.id = :fId";
-    private static final String FIND_ALL_ORDER_BY_ID = "FROM Post p ORDER BY p.id";
-    private static final String FIND_BY_ID = "FROM Post p WHERE p.id = :fId";
+    private static final String FIND_ALL_ORDER_BY_ID = "FROM Post p JOIN FETCH p.car c ORDER BY p.id";
+    private static final String FIND_BY_ID = "FROM Post p JOIN FETCH p.car JOIN FETCH p.priceHistory WHERE p.id = :fId";
     private static final String COMPLETE_POST = "UPDATE Post p SET p.status = :fStatus WHERE p.id = :fId";
     private static final String DELETE_ALL = "DELETE Post";
 
