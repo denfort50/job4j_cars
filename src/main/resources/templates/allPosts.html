@@ -27,7 +27,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link" th:href="@{/posts}">Все объявления</a>
-                <a class="nav-item nav-link" th:href="@{/posts/formAddPost}">Добавить объявление</a>
+                <a class="nav-item nav-link" th:if="${user.login != 'Гость'}" th:href="@{/posts/formAddPost}">Добавить объявление</a>
                 <a class="nav-item nav-link" th:if="${user.login == 'Гость'}" th:href="@{/users/loginPage}">
                     <span th:text="${user.login}"></span>
                     <span> | Войти</span>
@@ -47,6 +47,7 @@
                 <th scope="col">Фото</th>
                 <th scope="col">Марка</th>
                 <th scope="col">Модель</th>
+                <th scope="col">Кузов</th>
                 <th scope="col">Цена</th>
                 <th scope="col">Дата создания</th>
                 <th scope="col">Продано</th>
@@ -56,14 +57,15 @@
             <tr th:each="post: ${allPosts}">
                 <td th:text="${post.id}"></td>
                 <td>
-                    <a th:href="@{|/postDescription/${post.id}|}">
-                        <img th:width="150" th:high="200" th:src="@{|/postPhoto/${post.id}|}">
+                    <a th:href="@{|/posts/postDescription/${post.id}|}">
+                        <img th:width="150" th:high="200" th:src="@{|/posts/postPhoto/${post.id}|}">
                     </a>
                 </td>
                 <td th:text="${post.car.brand}"></td>
                 <td th:text="${post.car.model}"></td>
+                <td th:text="${post.car.body.name}"></td>
                 <td th:text="${post.price}"></td>
-                <td th:text="${post.created}"></td>
+                <td th:text="${#dates.format(post.created, 'dd-MM-yyyy HH:mm')}"></td>
                 <td>
                     <span th:if="${post.status}">
                         <i class="fa fa-check-square-o"></i>

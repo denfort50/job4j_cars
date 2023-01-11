@@ -15,7 +15,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>ToDo</title>
+    <title>Cars</title>
 </head>
 <body>
 <div class="container">
@@ -26,16 +26,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" th:href="@{/tasks}">Все задания</a>
-                <a class="nav-item nav-link" th:href="@{/tasks/undone}">Новые задания</a>
-                <a class="nav-item nav-link" th:href="@{/tasks/done}">Выполненные задания</a>
-                <a class="nav-item nav-link" th:href="@{/tasks/formAddTask}">Добавить задание</a>
-                <a class="nav-item nav-link" th:if="${user.username == 'Гость'}" th:href="@{/users/loginPage}">
-                    <span th:text="${user.username}"></span>
+                <a class="nav-item nav-link" th:href="@{/posts}">Все объявления</a>
+                <a class="nav-item nav-link" th:href="@{/posts/formAddPost}">Добавить объявление</a>
+                <a class="nav-item nav-link" th:if="${user.login == 'Гость'}" th:href="@{/users/loginPage}">
+                    <span th:text="${user.login}"></span>
                     <span> | Войти</span>
                 </a>
-                <a class="nav-item nav-link" th:if="${user.username != 'Гость'}" th:href="@{/users/logout}">
-                    <span th:text="${user.username}"></span>
+                <a class="nav-item nav-link" th:if="${user.login != 'Гость'}" th:href="@{/users/logout}">
+                    <span th:text="${user.login}"></span>
                     <span> | Выйти</span>
                 </a>
             </div>
@@ -44,47 +42,50 @@
     <div class="row pt-3">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                <h4>Задание</h4>
+                <h4>Объявление</h4>
             </div>
             <div class="card-body">
-                <div>ID: <span th:text="${task.id}"></span></div>
-                <div>Название: <span th:text="${task.title}"></span></div>
-                <div>Описание: <span th:text="${task.description}"></span></div>
-                <div>Дата создания: <span th:text="${#temporals.format(task.created, 'dd-MM-yyyy HH:mm')}"></span></div>
-                <div>Статус:
-                    <span th:if="${task.done}">
+                <div> <img th:width="300" th:high="400" th:src="@{|/posts/postPhoto/${post.id}|}"></div>
+                <div>ID: <span th:text="${post.id}"></span></div>
+                <div>Цена: <span th:text="${post.price}"></span></div>
+                <div>Марка: <span th:text="${post.car.brand}"></span></div>
+                <div>Модель: <span th:text="${post.car.model}"></span></div>
+                <div>Кузов: <span th:text="${post.car.body.name}"></span></div>
+                <div>Идентификатор двигателя: <span th:text="${post.car.engine.index}"></span></div>
+                <div>Описание: <span th:text="${post.text}"></span></div>
+                <div>Дата создания: <span th:text="${#dates.format(post.created, 'dd-MM-yyyy HH:mm')}"></span></div>
+                <div>Создатель объявления: <span th:text="${post.user.username}"></span></div>
+                <div>Продано:
+                    <span th:if="${post.status}">
                         <i class="fa fa-check-square-o"></i>
                     </span>
-                    <span th:if="${!task.done}">
+                    <span th:if="${!post.status}">
                         <i class="fa fa-square-o"></i>
                     </span>
                 </div>
+                <div>Изменение цены: <span th:text="${post.priceHistory}"></span></div>
                 <div class="row">
                     <div class="card">
-                        <form th:action="@{/tasks/completeTask}" method="POST" th:object="${task}" enctype="multipart/form-data">
-                            <span th:if="${!task.done}">
+                        <form th:action="@{/posts/completePost}" method="POST" th:object="${post}" enctype="multipart/form-data">
+                            <span th:if="${!post.status and user.username == post.user.username}">
                                 <input type="hidden" name="id" th:field="*{id}"/>
-                                <input type="hidden" name="title" th:field="*{title}"/>
-                                <input type="hidden" name="description" th:field="*{description}"/>
-                                <input type="hidden" name="created" th:field="*{created}"/>
-                                <button type="submit" class="btn btn-success">Завершить</button>
+                                <button type="submit" class="btn btn-success">Завершить продажу</button>
                             </span>
                         </form>
                     </div>
                     <div class="card">
-                        <form th:action="@{|/tasks/formModifyTask/${task.id}|}" method="GET" th:object="${task}" enctype="multipart/form-data">
-                            <span th:if="${!task.done}">
-                                <button type="submit" class="btn btn-info">Изменить</button>
+                        <form th:action="@{|/posts/formModifyPost/${post.id}|}" method="GET" th:object="${post}" enctype="multipart/form-data">
+                            <span th:if="${!post.status and user.username == post.user.username}">
+                                <button type="submit" class="btn btn-info">Отредактировать описание</button>
                             </span>
                         </form>
                     </div>
                     <div class="card">
-                        <form th:action="@{/tasks/deleteTask}" method="POST" th:object="${task}" enctype="multipart/form-data">
-                            <input type="hidden" name="id" th:field="*{id}"/>
-                            <input type="hidden" name="title" th:field="*{title}"/>
-                            <input type="hidden" name="description" th:field="*{description}"/>
-                            <input type="hidden" name="created" th:field="*{created}"/>
-                            <button type="submit" class="btn btn-warning">Удалить</button>
+                        <form th:action="@{/posts/deletePost}" method="POST" th:object="${post}" enctype="multipart/form-data">
+                            <span th:if="${user.username == post.user.username}">
+                                <input type="hidden" name="id" th:field="*{id}"/>
+                                <button type="submit" class="btn btn-warning">Удалить объявление</button>
+                            </span>
                         </form>
                     </div>
                 </div>

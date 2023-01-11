@@ -22,30 +22,34 @@
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Новое объявление
+                Создание нового объявления
             </div>
             <div class="card-body">
-                <form th:action="@{/posts/createPost}" method="POST">
+                <form th:action="@{/posts/createPost}" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="0"/>
                     <div class="form-group" >
-                        <label for="title">Название</label>
-                        <input type="text" class="form-control" name="title" id="title" required>
-                        <label for="description">Описание</label>
-                        <input type="text" class="form-control" name="description" id="description" required>
+                        <label for="price">Цена</label>
+                        <input type="text" class="form-control" name="price" id="price" required>
+                        <label for="text">Описание</label>
+                        <input type="text" class="form-control" name="text" id="text" required>
+                        <label for="brand">Марка</label>
+                        <input type="text" class="form-control" name="brand" id="brand" required>
+                        <label for="model">Модель</label>
+                        <input type="text" class="form-control" name="model" id="model" required>
+                        <label for="index">Идентификатор двигателя</label>
+                        <input type="text" class="form-control" name="index" id="index" required>
                     </div>
                     <div class="form-group">
-                        <label for="priority.id">Приоритет</label>
-                        <select class="form-control" id="priority.id" name="priority.id" required>
-                            <option th:each="priority : ${priorities}" th:value="${priority.id}" th:text="${priority.name}"></option>
+                        <label for="body.id">Кузов</label>
+                        <select class="form-control" id="body.id" name="body.id" required>
+                            <option th:each="body : ${bodies}" th:value="${body.id}" th:text="${body.name}"></option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Фото автомобиля</label>
+                        <input type="file" class="form-control" name="file" id="file" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Создать</button>
-                    <div class="form-group">
-                        <label for="category.id">Категория</label>
-                        <select class="form-control" id="category.id" name="category.id" multiple="multiple" size="4" required>
-                            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
-                        </select>
-                    </div>
                 </form>
             </div>
         </div>

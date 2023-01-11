@@ -27,7 +27,6 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link" th:href="@{/posts}">Все объявления</a>
-                <a class="nav-item nav-link" th:href="@{/posts/formAddPost}">Добавить объявление</a>
                 <a class="nav-item nav-link" th:if="${user.login == 'Гость'}" th:href="@{/addUser}">
                     Зарегистрироваться
                 </a>
