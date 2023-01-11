@@ -13,7 +13,7 @@ import java.util.Set;
 public class AuthFilter implements Filter {
 
     private final Set<String> mappings =
-            new HashSet<>(Set.of("loginPage", "addUser", "registration", "login", "fail", "success"));
+            new HashSet<>(Set.of("posts", "loginPage", "addUser", "registration", "login", "fail", "success"));
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
@@ -26,7 +26,7 @@ public class AuthFilter implements Filter {
             return;
         }
         if (req.getSession().getAttribute("user") == null) {
-            res.sendRedirect(req.getContextPath() + "users/loginPage");
+            res.sendRedirect(req.getContextPath().split("http://.[^/]+")[0] + "/users/loginPage");
             return;
         }
         chain.doFilter(req, res);
