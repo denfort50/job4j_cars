@@ -1,4 +1,4 @@
 CREATE TABLE IF NOT EXISTS engines(
     id SERIAL PRIMARY KEY,
-    name VARCHAR NOT NULL
+    index VARCHAR NOT NULL
 );
