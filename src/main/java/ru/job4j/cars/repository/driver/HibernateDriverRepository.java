@@ -1,8 +1,9 @@
-package ru.job4j.cars.repository;
+package ru.job4j.cars.repository.driver;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Driver;
+import ru.job4j.cars.repository.CrudRepository;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,6 @@ public class HibernateDriverRepository implements DriverRepository {
 
     private final CrudRepository crudRepository;
 
-    private static final String DELETE = "DELETE Driver d WHERE d.id = :fId";
     private static final String FIND_ALL_ORDER_BY_ID = "FROM Driver d ORDER BY d.id";
     private static final String FIND_BY_ID = "FROM Driver d WHERE d.id = :fId";
     private static final String DELETE_ALL = "DELETE Driver";
@@ -31,8 +31,8 @@ public class HibernateDriverRepository implements DriverRepository {
     }
 
     @Override
-    public void delete(int driverId) {
-        crudRepository.queryAndGetBoolean(DELETE, Map.of("fId", driverId));
+    public void delete(Driver driver) {
+        crudRepository.run(session -> session.delete(driver));
     }
 
     @Override

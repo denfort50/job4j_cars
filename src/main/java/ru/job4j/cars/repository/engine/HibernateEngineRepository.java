@@ -1,8 +1,9 @@
-package ru.job4j.cars.repository;
+package ru.job4j.cars.repository.engine;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Engine;
+import ru.job4j.cars.repository.CrudRepository;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,6 @@ public class HibernateEngineRepository implements EngineRepository {
 
     private final CrudRepository crudRepository;
 
-    private static final String DELETE = "DELETE Engine e WHERE e.id = :fId";
     private static final String FIND_ALL_ORDER_BY_ID = "FROM Engine e ORDER BY e.id";
     private static final String FIND_BY_ID = "FROM Engine e WHERE e.id = :fId";
     private static final String DELETE_ALL = "DELETE Engine";
@@ -31,8 +31,8 @@ public class HibernateEngineRepository implements EngineRepository {
     }
 
     @Override
-    public void delete(int engineId) {
-        crudRepository.queryAndGetBoolean(DELETE, Map.of("fId", engineId));
+    public void delete(Engine engine) {
+        crudRepository.run(session -> session.delete(engine));
     }
 
     @Override

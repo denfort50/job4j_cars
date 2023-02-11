@@ -1,8 +1,9 @@
-package ru.job4j.cars.repository;
+package ru.job4j.cars.repository.user;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.User;
+import ru.job4j.cars.repository.CrudRepository;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,6 @@ public class HibernateUserRepository implements UserRepository {
 
     private final CrudRepository crudRepository;
 
-    private static final String DELETE = "DELETE User u WHERE u.id = :fId";
     private static final String FIND_ALL_ORDER_BY_ID = "FROM User u ORDER BY u.id";
     private static final String FIND_BY_ID = "FROM User u WHERE u.id = :fId";
     private static final String FIND_BY_LIKE_LOGIN = "FROM User u WHERE u.login LIKE :fKey";
@@ -42,10 +42,10 @@ public class HibernateUserRepository implements UserRepository {
 
     /**
      * Удалить пользователя по id
-     * @param userId ID
+     * @param user пользователь
      */
-    public void delete(int userId) {
-        crudRepository.queryAndGetBoolean(DELETE, Map.of("fId", userId));
+    public void delete(User user) {
+        crudRepository.run(session -> session.delete(user));
     }
 
     /**

@@ -1,8 +1,9 @@
-package ru.job4j.cars.repository;
+package ru.job4j.cars.repository.post;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Post;
+import ru.job4j.cars.repository.CrudRepository;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -18,10 +19,9 @@ public class HibernatePostRepository implements PostRepository {
 
     private static final String FIND_ALL_WITHIN_LAST_DAY = "FROM Post p JOIN FETCH p.car c WHERE p.created BETWEEN :fNowMinusOneDay AND :fNow";
     private static final String FIND_ALL_WITH_PHOTO = "FROM Post p JOIN FETCH p.car c WHERE p.photo IS NOT NULL";
-    private static final String FIND_ALL_BY_NAME = "FROM Post p JOIN FETCH p.car c WHERE c.name = :fName";
-    private static final String DELETE = "DELETE Post p WHERE p.id = :fId";
+    private static final String FIND_ALL_BY_NAME = "FROM Post p JOIN FETCH p.car c WHERE c.brand = :fBrand";
     private static final String FIND_ALL_ORDER_BY_ID = "FROM Post p JOIN FETCH p.car c ORDER BY p.id";
-    private static final String FIND_BY_ID = "FROM Post p JOIN FETCH p.car JOIN FETCH p.priceHistory WHERE p.id = :fId";
+    private static final String FIND_BY_ID = "FROM Post p JOIN FETCH p.car JOIN FETCH p.priceHistoryList WHERE p.id = :fId";
     private static final String COMPLETE_POST = "UPDATE Post p SET p.status = :fStatus WHERE p.id = :fId";
     private static final String DELETE_ALL = "DELETE Post";
 
@@ -37,12 +37,12 @@ public class HibernatePostRepository implements PostRepository {
     }
 
     @Override
-    public void delete(int postId) {
-        crudRepository.queryAndGetBoolean(DELETE, Map.of("fId", postId));
+    public void delete(Post post) {
+        crudRepository.run(session -> session.delete(post));
     }
 
     public boolean complete(int id) {
-        return crudRepository.queryAndGetBoolean(COMPLETE_POST, Map.of("fDone", true, "fId", id));
+        return crudRepository.queryAndGetBoolean(COMPLETE_POST, Map.of("fStatus", true, "fId", id));
     }
 
     @Override
@@ -68,8 +68,8 @@ public class HibernatePostRepository implements PostRepository {
     }
 
     @Override
-    public List<Post> findAllByName(String name) {
-        return crudRepository.queryAndGetList(FIND_ALL_BY_NAME, Post.class, Map.of("fName", name));
+    public List<Post> findAllByName(String brand) {
+        return crudRepository.queryAndGetList(FIND_ALL_BY_NAME, Post.class, Map.of("fBrand", brand));
     }
 
     public void deleteAll() {
