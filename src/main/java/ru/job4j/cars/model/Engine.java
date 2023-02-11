@@ -4,6 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/**
+ * Класс описывает модель данных - двигатель
+ */
 @Entity
 @Table(name = "engines")
 @NoArgsConstructor

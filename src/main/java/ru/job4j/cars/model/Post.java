@@ -6,8 +6,13 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+/**
+ * Класс описывает модель данных - объявление
+ */
 @Entity
 @Table(name = "posts")
 @AllArgsConstructor
@@ -32,9 +37,11 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @NonNull
     private User user;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.ALL},
+            fetch = FetchType.EAGER)
     @JoinTable(
             name = "participates",
             joinColumns = {
@@ -42,11 +49,11 @@ public class Post {
             inverseJoinColumns = {
                     @JoinColumn(name = "user_id") }
     )
-    private List<User> participates = new ArrayList<>();
+    private Set<User> participates = new HashSet<>();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
-    private List<PriceHistory> priceHistory;
+    private List<PriceHistory> priceHistoryList = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "car_id")
@@ -54,4 +61,16 @@ public class Post {
     private Car car;
 
     private byte[] photo;
+
+    public void addToPriceHistoryList(PriceHistory priceHistory) {
+        priceHistoryList.add(priceHistory);
+    }
+
+    public int getPriceHistoryListSize() {
+        return priceHistoryList.size();
+    }
+
+    public int getPreviousPrice() {
+        return priceHistoryList.get(priceHistoryList.size() - 1).getAfter();
+    }
 }

@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
+/**
+ * Класс описывает модель данных - кузов
+ */
 @Entity
 @Table(name = "bodies")
 @NoArgsConstructor
