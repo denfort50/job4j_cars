@@ -9,11 +9,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Cars</title>
 </head>
@@ -21,12 +24,15 @@
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">ToDo</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link" th:href="@{/posts}">Все объявления</a>
+                <a class="nav-item nav-link" th:href="@{/posts/withingLastDay}">За последний день</a>
+                <a class="nav-item nav-link" th:href="@{/posts/withPhoto}">С фотографией</a>
                 <a class="nav-item nav-link" th:href="@{/posts/formAddPost}">Добавить объявление</a>
                 <a class="nav-item nav-link" th:if="${user.login == 'Гость'}" th:href="@{/users/loginPage}">
                     <span th:text="${user.login}"></span>
@@ -45,7 +51,7 @@
                 <h4>Объявление</h4>
             </div>
             <div class="card-body">
-                <div> <img th:width="300" th:high="400" th:src="@{|/posts/postPhoto/${post.id}|}"></div>
+                <div><img th:width="300" th:high="400" th:src="@{|/posts/postPhoto/${post.id}|}"></div>
                 <div>ID: <span th:text="${post.id}"></span></div>
                 <div>Цена: <span th:text="${post.price}"></span></div>
                 <div>Марка: <span th:text="${post.car.brand}"></span></div>
@@ -63,10 +69,10 @@
                         <i class="fa fa-square-o"></i>
                     </span>
                 </div>
-                <div>Изменение цены: <span th:text="${post.priceHistory}"></span></div>
                 <div class="row">
                     <div class="card">
-                        <form th:action="@{/posts/completePost}" method="POST" th:object="${post}" enctype="multipart/form-data">
+                        <form th:action="@{/posts/completePost}" method="POST" th:object="${post}"
+                              enctype="multipart/form-data">
                             <span th:if="${!post.status and user.username == post.user.username}">
                                 <input type="hidden" name="id" th:field="*{id}"/>
                                 <button type="submit" class="btn btn-success">Завершить продажу</button>
@@ -74,14 +80,16 @@
                         </form>
                     </div>
                     <div class="card">
-                        <form th:action="@{|/posts/formModifyPost/${post.id}|}" method="GET" th:object="${post}" enctype="multipart/form-data">
+                        <form th:action="@{|/posts/formModifyPost/${post.id}|}" method="GET" th:object="${post}"
+                              enctype="multipart/form-data">
                             <span th:if="${!post.status and user.username == post.user.username}">
                                 <button type="submit" class="btn btn-info">Отредактировать описание</button>
                             </span>
                         </form>
                     </div>
                     <div class="card">
-                        <form th:action="@{/posts/deletePost}" method="POST" th:object="${post}" enctype="multipart/form-data">
+                        <form th:action="@{/posts/deletePost}" method="POST" th:object="${post}"
+                              enctype="multipart/form-data">
                             <span th:if="${user.username == post.user.username}">
                                 <input type="hidden" name="id" th:field="*{id}"/>
                                 <button type="submit" class="btn btn-warning">Удалить объявление</button>
@@ -92,6 +100,24 @@
             </div>
         </div>
     </div>
+    <table th:if="${post.priceHistoryList != null}" class="table"
+           style="width:40%; float: left">
+        <caption style="caption-side: top; text-align: center"><b>Изменение цены</b></caption>
+        <thead>
+        <tr class="table-info">
+            <th scope="col">#</th>
+            <th scope="col">Предыдущая цена</th>
+            <th scope="col">Дата</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="priceHistory,iterStat :${post.priceHistoryList}">
+            <td th:text="${iterStat.count}"></td>
+            <td th:text="${priceHistory.before}"></td>
+            <td th:text="${#dates.format(post.created, 'dd-MM-yyyy HH:mm')}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

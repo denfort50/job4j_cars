@@ -27,6 +27,8 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link" th:href="@{/posts}">Все объявления</a>
+                <a class="nav-item nav-link" th:href="@{/posts/withingLastDay}">За последний день</a>
+                <a class="nav-item nav-link" th:href="@{/posts/withPhoto}">С фотографией</a>
                 <a class="nav-item nav-link" th:if="${user.login == 'Гость'}" th:href="@{/addUser}">
                     Зарегистрироваться
                 </a>
@@ -43,7 +45,7 @@
     </nav>
     <div class="row">
         <body>
-            <p>Пользователь зарегистрирован успешно</p>
+            <p>Пользователь с указанным логином уже существует</p>
         </body>
     </div>
 </div>
