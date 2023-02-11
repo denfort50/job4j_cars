@@ -1,4 +1,4 @@
-package ru.job4j.cars.config;
+package ru.job4j.cars.configuration;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -15,7 +15,7 @@ import ru.job4j.cars.repository.CrudRepositoryImpl;
  * @version 1.0
  */
 @Configuration
-public class HibernateConfig {
+public class DataSourceConfig {
 
     /**
      * Метод создает объект SessionFactory для многократного использования в приложении
@@ -28,6 +28,10 @@ public class HibernateConfig {
         return new MetadataSources(registry).buildMetadata().buildSessionFactory();
     }
 
+    /**
+     * Метод создает объект CrudRepository для взаимодействия с базой данных
+     * @return возвращает объект CrudRepository
+     */
     @Bean
     public CrudRepository getCrudRepository() {
         return new CrudRepositoryImpl(getSessionFactory());

@@ -1,4 +1,4 @@
-package ru.job4j.cars.config;
+package ru.job4j.cars.configuration;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -15,7 +15,7 @@ import ru.job4j.cars.repository.CrudRepositoryImpl;
  * @version 1.0
  */
 @Configuration
-public class TestHibernateConfig {
+public class TestDataSourceConfig {
 
     /**
      * Метод создает объект SessionFactory для многократного использования в приложении
