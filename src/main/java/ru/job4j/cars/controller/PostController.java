@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import ru.job4j.cars.model.*;
-import ru.job4j.cars.service.BodyService;
-import ru.job4j.cars.service.EngineService;
-import ru.job4j.cars.service.PostService;
+import ru.job4j.cars.service.body.BodyService;
+import ru.job4j.cars.service.car.CarService;
+import ru.job4j.cars.service.engine.EngineService;
+import ru.job4j.cars.service.post.PostService;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -37,18 +38,65 @@ import static ru.job4j.cars.util.UserAttributeTool.getAttributeUser;
 @RequestMapping("/posts")
 public class PostController {
 
+    /** Сервис, обеспечивающий доступ к хранилищу объявлений */
     private final PostService postService;
+
+    /** Сервис, обеспечивающий доступ к хранилищу кузовов */
     private final BodyService bodyService;
+
+    /** Сервис, обеспечивающий доступ к хранилищу автомобилей */
+    private final CarService carService;
+
+    /** Сервис, обеспечивающий доступ к хранилищу двигателей */
     private final EngineService engineService;
 
+    /**
+     * Метод обрабатывает GET-запрос к основной странице - post/allPosts
+     * @param model модель
+     * @param session сессия
+     * @return возвращает страницу со списком всех объявлений
+     */
     @GetMapping("")
     public String getAllPosts(Model model, HttpSession session) {
         List<Post> posts = postService.findAllOrderById();
         model.addAttribute("allPosts", posts);
         addAttributeUser(model, session);
-        return "allPosts";
+        return "post/allPosts";
     }
 
+    /**
+     * Метод обрабатывает GET-запрос к странице - post/withingLastDay
+     * @param model модель
+     * @param session сессия
+     * @return возвращает страницу со списком объявлений за последние сутки
+     */
+    @GetMapping("/withingLastDay")
+    public String getPostsWithinLastDay(Model model, HttpSession session) {
+        List<Post> posts = postService.findAllWithinLastDay();
+        model.addAttribute("postsWithinLastDay", posts);
+        addAttributeUser(model, session);
+        return "post/withinLastDayPosts";
+    }
+
+    /**
+     * Метод обрабатывает GET-запрос к странице - post/withPhotoPosts
+     * @param model модель
+     * @param session сессия
+     * @return возвращает страницу со списком объявлений с фотографией
+     */
+    @GetMapping("/withPhoto")
+    public String getPostsWithPhoto(Model model, HttpSession session) {
+        List<Post> posts = postService.findAllWithPhoto();
+        model.addAttribute("postsWithPhoto", posts);
+        addAttributeUser(model, session);
+        return "post/withPhotoPosts";
+    }
+
+    /**
+     * Метод обрабатывает GET-запрос на получение фотографии объявления
+     * @param postId ID объявления
+     * @return возвращает фото объявления
+     */
     @GetMapping("/postPhoto/{postId}")
     public ResponseEntity<Resource> download(@PathVariable("postId") Integer postId) {
         Optional<Post> post = postService.findById(postId);
@@ -60,20 +108,37 @@ public class PostController {
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND)).getPhoto()));
     }
 
+    /**
+     * Метод обрабатывает GET-запрос на получение формы для создания объявления
+     * @param model модель
+     * @return возвращает форму для создания объявления
+     */
     @GetMapping("formAddPost")
     public String addPost(Model model) {
         model.addAttribute("post",
                 new Post(0, "Текст",
-                new Car("Марка", "Модель",
+                new User("Имя", "Логин", "Пароль"),
+                        new Car("Марка", "Модель",
                         new Body("Кузов"),
                         new Engine("Двигатель"))));
         model.addAttribute("bodies", bodyService.findAll());
-        return "addPost";
+        return "post/addPost";
     }
 
+    /**
+     * Метод обрабатывает POST-запрос на создание нового объявления
+     * @param post объявление
+     * @param car автомобиль
+     * @param engine двигатель
+     * @param file фото
+     * @param httpSession сессия
+     * @return возвращает страницу со всеми объявлениями
+     * @throws IOException
+     */
     @PostMapping("/createPost")
-    public String createPost(@ModelAttribute Post post, @ModelAttribute Car car,
-                             @ModelAttribute Body body, @ModelAttribute Engine engine,
+    public String createPost(@ModelAttribute Post post,
+                             @ModelAttribute Car car,
+                             @ModelAttribute Engine engine,
                              @RequestParam("file") MultipartFile file,
                              HttpSession httpSession) throws IOException {
         post.setPhoto(file.getBytes());
@@ -81,11 +146,54 @@ public class PostController {
         engineService.create(engine);
         car.setEngine(engine);
         post.setCar(car);
-        post.getCar().setBody(bodyService.findById(post.getCar().getBody().getId()));
+        post.getCar().setBody(bodyService.findById(car.getBody().getId()));
+        PriceHistory priceHistory = createPriceHistoryObject(post);
+        post.addToPriceHistoryList(priceHistory);
         postService.create(post);
         return "redirect:/posts";
     }
 
+    /**
+     * Метод обрабатывает POST-запрос на редактирование нового объявления
+     * @param post объявление
+     * @param car автомобиль
+     * @param engine двигатель
+     * @param file фото
+     * @return возвращает страницу со списком всех объявлений
+     * @throws IOException
+     */
+    @PostMapping("/updatePost")
+    public String updatePost(@ModelAttribute Post post,
+                             @ModelAttribute Car car,
+                             @ModelAttribute Engine engine,
+                             @RequestParam("file") MultipartFile file) throws IOException {
+        Post postInDb = postService.findById(post.getId()).orElseThrow();
+        Car carInDb = postInDb.getCar();
+        Engine engineInDb = carInDb.getEngine();
+        engineInDb.setIndex(engine.getIndex());
+        engineService.update(engineInDb);
+        carInDb.setBrand(car.getBrand());
+        carInDb.setModel(car.getModel());
+        carInDb.setEngine(engineInDb);
+        carInDb.setBody(bodyService.findById(car.getBody().getId()));
+        carService.update(carInDb);
+        postInDb.setPrice(post.getPrice());
+        postInDb.setText(post.getText());
+        postInDb.setCar(carInDb);
+        postInDb.setPhoto(file.getBytes());
+        PriceHistory priceHistory = createPriceHistoryObject(postInDb);
+        postInDb.addToPriceHistoryList(priceHistory);
+        postService.update(postInDb);
+        return "redirect:/posts";
+    }
+
+    /**
+     * Метод обрабатывает GET-запрос на получение подробной информации по объявлению
+     * @param model модель
+     * @param id ID объявления
+     * @param httpSession сессия
+     * @return возвращает страницу с подробной информацией по объявлению или ошибку 404
+     */
     @GetMapping("/postDescription/{postId}")
     public String getPostDescription(Model model, @PathVariable("postId") int id, HttpSession httpSession) {
         Optional<Post> post = postService.findById(id);
@@ -93,12 +201,17 @@ public class PostController {
             httpSession.setAttribute("postId", id);
             model.addAttribute("post", post.get());
             addAttributeUser(model, httpSession);
-            return "postDescription";
+            return "post/postDescription";
         } else {
             return "redirect:/404";
         }
     }
 
+    /**
+     * Метод обрабатывает POST-запрос на закрытие объявления
+     * @param post объявление
+     * @return возвращает страницу со списком всех объявлений
+     */
     @PostMapping("/completePost")
     public String completePost(@ModelAttribute Post post) {
         boolean result = postService.complete(post.getId());
@@ -108,29 +221,46 @@ public class PostController {
         return "redirect:/posts";
     }
 
+    /**
+     * Метод обрабатывает GET-запрос на получение страницы с формой для редактирования объявления
+     * @param model модель
+     * @param id ID объявления
+     * @return возвращает страницу с формой для редактирования объявления
+     */
     @GetMapping("formModifyPost/{id}")
     public String modifyPost(Model model, @PathVariable("id") int id) {
         model.addAttribute("post", postService.findById(id));
         model.addAttribute("bodies", bodyService.findAll());
-        return "modifyPost";
+        return "post/modifyPost";
     }
 
-    @PostMapping("/updatePost")
-    public String updatePost(@ModelAttribute Post post, @ModelAttribute Car car,
-                             @ModelAttribute Body body, @ModelAttribute Engine engine,
-                             @RequestParam("file") MultipartFile file) throws IOException {
-        post.setPhoto(file.getBytes());
-        engineService.update(engine);
-        car.setEngine(engine);
-        post.setCar(car);
-        post.getCar().setBody(bodyService.findById(post.getCar().getBody().getId()));
-        postService.update(post);
-        return "redirect:/posts";
-    }
-
+    /**
+     * Метод обрабатывает POST-запрос на удаление объявления
+     * @param post объявление
+     * @return возвращает страницу со списком всех объявлений
+     */
     @PostMapping("/deletePost")
     public String deletePost(@ModelAttribute Post post) {
-        postService.delete(post.getId());
+        Post postInDb = postService.findById(post.getId()).orElseThrow();
+        postService.delete(postInDb);
         return "redirect:/posts";
+    }
+
+    /**
+     * Метод создает объект истории цен по объявлению
+     * @param post объявление
+     * @return возвращает объект истории цен по объявлению
+     */
+    private PriceHistory createPriceHistoryObject(Post post) {
+        PriceHistory priceHistory = new PriceHistory();
+        int size = post.getPriceHistoryListSize();
+        if (size == 0) {
+            priceHistory.setBefore(0);
+        } else {
+            priceHistory.setBefore(post.getPreviousPrice());
+        }
+        priceHistory.setAfter(post.getPrice());
+        priceHistory.setCreated(Timestamp.valueOf(LocalDateTime.now()));
+        return priceHistory;
     }
 }
