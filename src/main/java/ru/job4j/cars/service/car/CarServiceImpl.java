@@ -1,9 +1,9 @@
-package ru.job4j.cars.service;
+package ru.job4j.cars.service.car;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.cars.model.Car;
-import ru.job4j.cars.repository.CarRepository;
+import ru.job4j.cars.repository.car.CarRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,8 +25,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void delete(int carId) {
-        carRepository.delete(carId);
+    public void delete(Car car) {
+        carRepository.delete(car);
     }
 
     @Override

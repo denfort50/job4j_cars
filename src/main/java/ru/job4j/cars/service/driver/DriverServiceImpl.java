@@ -1,9 +1,9 @@
-package ru.job4j.cars.service;
+package ru.job4j.cars.service.driver;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.cars.model.Driver;
-import ru.job4j.cars.repository.DriverRepository;
+import ru.job4j.cars.repository.driver.DriverRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,8 +25,8 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public void delete(int driverId) {
-        driverRepository.delete(driverId);
+    public void delete(Driver driver) {
+        driverRepository.delete(driver);
     }
 
     @Override

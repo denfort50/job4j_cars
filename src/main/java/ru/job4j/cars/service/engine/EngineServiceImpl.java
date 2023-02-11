@@ -1,9 +1,9 @@
-package ru.job4j.cars.service;
+package ru.job4j.cars.service.engine;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.cars.model.Engine;
-import ru.job4j.cars.repository.EngineRepository;
+import ru.job4j.cars.repository.engine.EngineRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,8 +25,8 @@ public class EngineServiceImpl implements EngineService {
     }
 
     @Override
-    public void delete(int engineId) {
-        engineRepository.delete(engineId);
+    public void delete(Engine engine) {
+        engineRepository.delete(engine);
     }
 
     @Override

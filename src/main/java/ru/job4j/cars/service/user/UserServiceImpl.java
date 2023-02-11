@@ -1,10 +1,11 @@
-package ru.job4j.cars.service;
+package ru.job4j.cars.service.user;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.cars.model.User;
-import ru.job4j.cars.repository.UserRepository;
+import ru.job4j.cars.repository.user.UserRepository;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +31,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(int userId) {
-        userRepository.delete(userId);
+    public void delete(User user) {
+        userRepository.delete(user);
     }
 
     @Override
