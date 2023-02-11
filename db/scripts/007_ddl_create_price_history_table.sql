@@ -3,5 +3,5 @@ CREATE TABLE IF NOT EXISTS price_history (
     before BIGINT NOT NULL,
     after BIGINT NOT NULL,
     created TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
-    post_id int NOT NULL REFERENCES posts(id)
+    post_id int REFERENCES posts(id)
 );
