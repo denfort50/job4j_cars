@@ -3,8 +3,10 @@ package ru.job4j.cars.repository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.job4j.cars.config.TestHibernateConfig;
+import ru.job4j.cars.configuration.TestDataSourceConfig;
 import ru.job4j.cars.model.User;
+import ru.job4j.cars.repository.user.HibernateUserRepository;
+import ru.job4j.cars.repository.user.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,8 +16,8 @@ import static org.assertj.core.api.Assertions.*;
 
 class HibernateUserRepositoryTest {
 
-    private final TestHibernateConfig testHibernateConfig = new TestHibernateConfig();
-    private final CrudRepository crudRepository = testHibernateConfig.getCrudRepository();
+    private final TestDataSourceConfig testDataSourceConfig = new TestDataSourceConfig();
+    private final CrudRepository crudRepository = testDataSourceConfig.getCrudRepository();
     private final UserRepository userRepository = new HibernateUserRepository(crudRepository);
 
     @BeforeEach
@@ -47,7 +49,7 @@ class HibernateUserRepositoryTest {
     void whenDeleteThenSuccess() {
         User user = new User("Denis", "Denis", "password");
         user = userRepository.create(user).orElseThrow();
-        userRepository.delete(user.getId());
+        userRepository.delete(user);
         Optional<User> userFromDB = userRepository.findById(user.getId());
         assertThat(userFromDB).isEmpty();
     }

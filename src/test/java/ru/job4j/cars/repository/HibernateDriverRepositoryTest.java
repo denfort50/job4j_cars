@@ -2,9 +2,13 @@ package ru.job4j.cars.repository;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import ru.job4j.cars.config.TestHibernateConfig;
+import ru.job4j.cars.configuration.TestDataSourceConfig;
 import ru.job4j.cars.model.Driver;
 import ru.job4j.cars.model.User;
+import ru.job4j.cars.repository.driver.DriverRepository;
+import ru.job4j.cars.repository.driver.HibernateDriverRepository;
+import ru.job4j.cars.repository.user.HibernateUserRepository;
+import ru.job4j.cars.repository.user.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,8 +18,8 @@ import static org.assertj.core.api.Assertions.*;
 
 class HibernateDriverRepositoryTest {
 
-    private final TestHibernateConfig testHibernateConfig = new TestHibernateConfig();
-    private final CrudRepository crudRepository = testHibernateConfig.getCrudRepository();
+    private final TestDataSourceConfig testDataSourceConfig = new TestDataSourceConfig();
+    private final CrudRepository crudRepository = testDataSourceConfig.getCrudRepository();
     private final DriverRepository driverRepository = new HibernateDriverRepository(crudRepository);
     private final UserRepository userRepository = new HibernateUserRepository(crudRepository);
 
@@ -27,7 +31,7 @@ class HibernateDriverRepositoryTest {
 
     @Test
     void whenCreateThenSuccess() {
-        User user = new User("Denis", "password");
+        User user = new User("Denis", "denfort50@yandex.ru", "password");
         userRepository.create(user);
         Driver driver = new Driver("Denis", user);
         driverRepository.create(driver);
@@ -37,7 +41,7 @@ class HibernateDriverRepositoryTest {
 
     @Test
     void whenUpdateThenSuccess() {
-        User user = new User("Denis", "password");
+        User user = new User("Denis", "denfort50@yandex.ru", "password");
         userRepository.create(user);
         Driver driver1 = new Driver("Denis", user);
         Driver driver2 = new Driver("Denis Kalchenko", user);
@@ -50,19 +54,19 @@ class HibernateDriverRepositoryTest {
 
     @Test
     void whenDeleteThenSuccess() {
-        User user = new User("Denis", "password");
+        User user = new User("Denis", "denfort50@yandex.ru", "password");
         userRepository.create(user);
         Driver driver = new Driver("Denis", user);
         driverRepository.create(driver);
-        driverRepository.delete(driver.getId());
+        driverRepository.delete(driver);
         Optional<Driver> driverFromDB = driverRepository.findById(driver.getId());
         assertThat(driverFromDB).isEmpty();
     }
 
     @Test
     void whenFindAllThenSuccess() {
-        User user1 = new User("Denis", "password");
-        User user2 = new User("Alex", "password");
+        User user1 = new User("Denis", "denfort50@yandex.ru", "password");
+        User user2 = new User("Alex", "alex0@yandex.ru", "password");
         userRepository.create(user1);
         userRepository.create(user2);
         Driver driver1 = new Driver("Denis", user1);
@@ -76,8 +80,8 @@ class HibernateDriverRepositoryTest {
 
     @Test
     void whenDeleteAllThenSuccess() {
-        User user1 = new User("Denis", "password");
-        User user2 = new User("Alex", "password");
+        User user1 = new User("Denis", "denfort50@yandex.ru", "password");
+        User user2 = new User("Alex", "alex50@yandex.ru", "password");
         userRepository.create(user1);
         userRepository.create(user2);
         Driver driver1 = new Driver("Denis", user1);

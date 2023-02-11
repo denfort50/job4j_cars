@@ -2,8 +2,10 @@ package ru.job4j.cars.repository;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import ru.job4j.cars.config.TestHibernateConfig;
+import ru.job4j.cars.configuration.TestDataSourceConfig;
 import ru.job4j.cars.model.Engine;
+import ru.job4j.cars.repository.engine.EngineRepository;
+import ru.job4j.cars.repository.engine.HibernateEngineRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,8 +15,8 @@ import static org.assertj.core.api.Assertions.*;
 
 class HibernateEngineRepositoryTest {
 
-    private final TestHibernateConfig testHibernateConfig = new TestHibernateConfig();
-    private final CrudRepository crudRepository = testHibernateConfig.getCrudRepository();
+    private final TestDataSourceConfig testDataSourceConfig = new TestDataSourceConfig();
+    private final CrudRepository crudRepository = testDataSourceConfig.getCrudRepository();
     private final EngineRepository engineRepository = new HibernateEngineRepository(crudRepository);
 
     @AfterEach
@@ -27,7 +29,7 @@ class HibernateEngineRepositoryTest {
         Engine engine = new Engine("TDI 3.0");
         engineRepository.create(engine);
         Engine engineFromDB = engineRepository.findById(engine.getId()).orElseThrow();
-        assertThat(engineFromDB.getName()).isEqualTo(engine.getName());
+        assertThat(engineFromDB.getIndex()).isEqualTo(engine.getIndex());
     }
 
     @Test
@@ -38,14 +40,14 @@ class HibernateEngineRepositoryTest {
         engine2.setId(engine1.getId());
         engineRepository.update(engine2);
         Engine engineFromDB = engineRepository.findById(engine2.getId()).orElseThrow();
-        assertThat(engineFromDB.getName()).isEqualTo(engine2.getName());
+        assertThat(engineFromDB.getIndex()).isEqualTo(engine2.getIndex());
     }
 
     @Test
     void whenDeleteThenSuccess() {
         Engine engine = new Engine("TDI 3.0");
         engineRepository.create(engine);
-        engineRepository.delete(engine.getId());
+        engineRepository.delete(engine);
         Optional<Engine> engineFromDB = engineRepository.findById(engine.getId());
         assertThat(engineFromDB).isEmpty();
     }
@@ -57,8 +59,8 @@ class HibernateEngineRepositoryTest {
         engineRepository.create(engine1);
         engineRepository.create(engine2);
         List<Engine> enginesFromDB = engineRepository.findAllOrderById();
-        assertThat(enginesFromDB.stream().map(Engine::getName).collect(Collectors.toList()))
-                .contains(engine1.getName(), engine2.getName());
+        assertThat(enginesFromDB.stream().map(Engine::getIndex).collect(Collectors.toList()))
+                .contains(engine1.getIndex(), engine2.getIndex());
     }
 
     @Test
