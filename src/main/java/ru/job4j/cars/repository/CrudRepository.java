@@ -90,7 +90,7 @@ public interface CrudRepository {
      * @return возвращает объект
      * @param <T> ссылочный тип данных участвующего в операции объекта
      */
-    <T> Object queryAndGetObject(String query, Class<T> tClass, Map<String, Object> args);
+    <T> T queryAndGetObject(String query, Class<T> tClass, Map<String, Object> args);
 
     /**
      * Метод выполняет транзакционный запрос

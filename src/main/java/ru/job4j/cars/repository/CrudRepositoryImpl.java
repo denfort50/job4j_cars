@@ -102,7 +102,7 @@ public class CrudRepositoryImpl implements CrudRepository {
         return intResult > 0;
     }
 
-    public <T> Object queryAndGetObject(String query, Class<T> tClass, Map<String, Object> args) {
+    public <T> T queryAndGetObject(String query, Class<T> tClass, Map<String, Object> args) {
         Function<Session, Object> command = session -> {
             var sq = session
                     .createQuery(query, tClass);
@@ -111,7 +111,7 @@ public class CrudRepositoryImpl implements CrudRepository {
             }
             return sq.uniqueResult();
         };
-        return executeTransaction(command);
+        return (T) executeTransaction(command);
     }
 
     public <T> T executeTransaction(Function<Session, T> command) {

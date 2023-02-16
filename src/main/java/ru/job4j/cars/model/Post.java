@@ -19,20 +19,26 @@ import java.util.Set;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
     @NonNull
+    @EqualsAndHashCode.Include
     private int price;
 
     @NonNull
+    @EqualsAndHashCode.Include
     private String text;
 
+    @EqualsAndHashCode.Include
     private Timestamp created = Timestamp.valueOf(LocalDateTime.now());
 
+    @EqualsAndHashCode.Include
     private boolean status = false;
 
     @ManyToOne

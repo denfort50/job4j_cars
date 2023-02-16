@@ -15,16 +15,20 @@ import java.util.Set;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
     @NonNull
+    @EqualsAndHashCode.Include
     private String brand;
 
     @NonNull
+    @EqualsAndHashCode.Include
     private String model;
 
     @ManyToOne

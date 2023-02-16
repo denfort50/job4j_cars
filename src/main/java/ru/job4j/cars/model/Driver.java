@@ -13,13 +13,16 @@ import javax.persistence.*;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Driver {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
     @NonNull
+    @EqualsAndHashCode.Include
     private String name;
 
     @OneToOne
