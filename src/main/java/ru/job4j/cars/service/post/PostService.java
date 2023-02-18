@@ -1,7 +1,12 @@
 package ru.job4j.cars.service.post;
 
+import org.springframework.web.multipart.MultipartFile;
+import ru.job4j.cars.model.Car;
+import ru.job4j.cars.model.Engine;
 import ru.job4j.cars.model.Post;
 
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,13 +20,13 @@ public interface PostService {
      * @param post объявление
      * @return возвращает объявление
      */
-    Post create(Post post);
+    Post create(Post post, Car car, Engine engine, MultipartFile file, HttpSession httpSession) throws IOException;
 
     /**
      * Метод обновляет объявления
      * @param post объявление
      */
-    void update(Post post);
+    void update(Post post, Car car, Engine engine, MultipartFile file) throws IOException;
 
     /**
      * Метод удаляет объявление

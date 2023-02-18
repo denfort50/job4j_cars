@@ -141,15 +141,7 @@ public class PostController {
                              @ModelAttribute Engine engine,
                              @RequestParam("file") MultipartFile file,
                              HttpSession httpSession) throws IOException {
-        post.setPhoto(file.getBytes());
-        post.setUser(getAttributeUser(httpSession));
-        engineService.create(engine);
-        car.setEngine(engine);
-        post.setCar(car);
-        post.getCar().setBody(bodyService.findById(car.getBody().getId()));
-        PriceHistory priceHistory = createPriceHistoryObject(post);
-        post.addToPriceHistoryList(priceHistory);
-        postService.create(post);
+        postService.create(post, car, engine, file, httpSession);
         return "redirect:/posts";
     }
 
@@ -167,23 +159,7 @@ public class PostController {
                              @ModelAttribute Car car,
                              @ModelAttribute Engine engine,
                              @RequestParam("file") MultipartFile file) throws IOException {
-        Post postInDb = postService.findById(post.getId()).orElseThrow();
-        Car carInDb = postInDb.getCar();
-        Engine engineInDb = carInDb.getEngine();
-        engineInDb.setIndex(engine.getIndex());
-        engineService.update(engineInDb);
-        carInDb.setBrand(car.getBrand());
-        carInDb.setModel(car.getModel());
-        carInDb.setEngine(engineInDb);
-        carInDb.setBody(bodyService.findById(car.getBody().getId()));
-        carService.update(carInDb);
-        postInDb.setPrice(post.getPrice());
-        postInDb.setText(post.getText());
-        postInDb.setCar(carInDb);
-        postInDb.setPhoto(file.getBytes());
-        PriceHistory priceHistory = createPriceHistoryObject(postInDb);
-        postInDb.addToPriceHistoryList(priceHistory);
-        postService.update(postInDb);
+        postService.update(post, car, engine, file);
         return "redirect:/posts";
     }
 
@@ -251,16 +227,5 @@ public class PostController {
      * @param post объявление
      * @return возвращает объект истории цен по объявлению
      */
-    private PriceHistory createPriceHistoryObject(Post post) {
-        PriceHistory priceHistory = new PriceHistory();
-        int size = post.getPriceHistoryListSize();
-        if (size == 0) {
-            priceHistory.setBefore(0);
-        } else {
-            priceHistory.setBefore(post.getPreviousPrice());
-        }
-        priceHistory.setAfter(post.getPrice());
-        priceHistory.setCreated(Timestamp.valueOf(LocalDateTime.now()));
-        return priceHistory;
-    }
+
 }
