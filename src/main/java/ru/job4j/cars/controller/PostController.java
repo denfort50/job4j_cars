@@ -141,7 +141,8 @@ public class PostController {
                              @ModelAttribute Engine engine,
                              @RequestParam("file") MultipartFile file,
                              HttpSession httpSession) throws IOException {
-        postService.create(post, car, engine, file, httpSession);
+        post.setUser(getAttributeUser(httpSession));
+        postService.create(post, car, engine, file);
         return "redirect:/posts";
     }
 

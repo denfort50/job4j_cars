@@ -35,9 +35,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post create(Post post, Car car, Engine engine,
-                       MultipartFile file, HttpSession httpSession) throws IOException {
+                       MultipartFile file) throws IOException {
         post.setPhoto(file.getBytes());
-        post.setUser(getAttributeUser(httpSession));
         engineService.create(engine);
         car.setEngine(engine);
         post.setCar(car);

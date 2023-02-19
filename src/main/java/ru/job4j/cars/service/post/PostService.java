@@ -20,7 +20,7 @@ public interface PostService {
      * @param post объявление
      * @return возвращает объявление
      */
-    Post create(Post post, Car car, Engine engine, MultipartFile file, HttpSession httpSession) throws IOException;
+    Post create(Post post, Car car, Engine engine, MultipartFile file) throws IOException;
 
     /**
      * Метод обновляет объявления
