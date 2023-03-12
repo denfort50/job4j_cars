@@ -9,6 +9,7 @@ import ru.job4j.cars.service.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static ru.job4j.cars.util.UserAttributeTool.addAttributeUser;
@@ -77,7 +78,7 @@ public class UserController {
      */
     @GetMapping("/addUser")
     public String addUser(Model model, HttpSession session) {
-        model.addAttribute("newUser", new User(0, "Имя", "Логин", "Пароль"));
+        model.addAttribute("newUser", new User(0, "Имя", "Логин", "Пароль", new ArrayList<>(), new ArrayList<>()));
         addAttributeUser(model, session);
         return "user/addUser";
     }

@@ -19,10 +19,12 @@ public class Driver {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
+    @Column(name = "id")
     private int id;
 
     @NonNull
     @EqualsAndHashCode.Include
+    @Column(name = "name")
     private String name;
 
     @OneToOne

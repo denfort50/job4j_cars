@@ -8,6 +8,7 @@ import ru.job4j.cars.service.user.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,7 +53,7 @@ class UserControllerTest {
 
     @Test
     void whenAddUserThenSuccess() {
-        User user = new User(0, "Имя", "Логин", "Пароль");
+        User user = new User(0, "Имя", "Логин", "Пароль", new ArrayList<>(), new ArrayList<>());
         Model model = mock(Model.class);
         HttpSession session = mock(HttpSession.class);
         UserService userService = mock(UserService.class);

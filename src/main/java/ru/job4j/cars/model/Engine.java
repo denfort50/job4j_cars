@@ -16,8 +16,10 @@ public class Engine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @NonNull
+    @Column(name = "index")
     private String index;
 }
