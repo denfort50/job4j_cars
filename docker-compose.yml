@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=cars
+      - GDATA=/var/lib/postgresql/data
+    volumes:
+      - ./db/cars/data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always
+  app:
+    image: job4j_cars
+    container_name: job4j_cars
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/cars
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+    ports:
+      - "127.0.0.1:80:8081"
+    depends_on:
+      - db
