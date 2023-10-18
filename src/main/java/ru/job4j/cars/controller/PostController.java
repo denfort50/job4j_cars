@@ -30,6 +30,7 @@ import static ru.job4j.cars.util.UserAttributeTool.getAttributeUser;
 
 /**
  * Класс представляет собой контроллер для обработки действий с объявлениями
+ *
  * @author Denis Kalchenko
  * @version 1.0
  */
@@ -38,21 +39,30 @@ import static ru.job4j.cars.util.UserAttributeTool.getAttributeUser;
 @RequestMapping("/posts")
 public class PostController {
 
-    /** Сервис, обеспечивающий доступ к хранилищу объявлений */
+    /**
+     * Сервис, обеспечивающий доступ к хранилищу объявлений
+     */
     private final PostService postService;
 
-    /** Сервис, обеспечивающий доступ к хранилищу кузовов */
+    /**
+     * Сервис, обеспечивающий доступ к хранилищу кузовов
+     */
     private final BodyService bodyService;
 
-    /** Сервис, обеспечивающий доступ к хранилищу автомобилей */
+    /**
+     * Сервис, обеспечивающий доступ к хранилищу автомобилей
+     */
     private final CarService carService;
 
-    /** Сервис, обеспечивающий доступ к хранилищу двигателей */
+    /**
+     * Сервис, обеспечивающий доступ к хранилищу двигателей
+     */
     private final EngineService engineService;
 
     /**
      * Метод обрабатывает GET-запрос к основной странице - post/allPosts
-     * @param model модель
+     *
+     * @param model   модель
      * @param session сессия
      * @return возвращает страницу со списком всех объявлений
      */
@@ -66,7 +76,8 @@ public class PostController {
 
     /**
      * Метод обрабатывает GET-запрос к странице - post/withingLastDay
-     * @param model модель
+     *
+     * @param model   модель
      * @param session сессия
      * @return возвращает страницу со списком объявлений за последние сутки
      */
@@ -80,7 +91,8 @@ public class PostController {
 
     /**
      * Метод обрабатывает GET-запрос к странице - post/withPhotoPosts
-     * @param model модель
+     *
+     * @param model   модель
      * @param session сессия
      * @return возвращает страницу со списком объявлений с фотографией
      */
@@ -94,6 +106,7 @@ public class PostController {
 
     /**
      * Метод обрабатывает GET-запрос на получение фотографии объявления
+     *
      * @param postId ID объявления
      * @return возвращает фото объявления
      */
@@ -110,6 +123,7 @@ public class PostController {
 
     /**
      * Метод обрабатывает GET-запрос на получение формы для создания объявления
+     *
      * @param model модель
      * @return возвращает форму для создания объявления
      */
@@ -117,20 +131,21 @@ public class PostController {
     public String addPost(Model model) {
         model.addAttribute("post",
                 new Post(0, "Текст",
-                new User("Имя", "Логин", "Пароль"),
+                        new User("Имя", "Логин", "Пароль"),
                         new Car("Марка", "Модель",
-                        new Body("Кузов"),
-                        new Engine("Двигатель"))));
+                                new Body("Кузов"),
+                                new Engine("Двигатель"))));
         model.addAttribute("bodies", bodyService.findAll());
         return "post/addPost";
     }
 
     /**
      * Метод обрабатывает POST-запрос на создание нового объявления
-     * @param post объявление
-     * @param car автомобиль
-     * @param engine двигатель
-     * @param file фото
+     *
+     * @param post        объявление
+     * @param car         автомобиль
+     * @param engine      двигатель
+     * @param file        фото
      * @param httpSession сессия
      * @return возвращает страницу со всеми объявлениями
      * @throws IOException
@@ -148,12 +163,12 @@ public class PostController {
 
     /**
      * Метод обрабатывает POST-запрос на редактирование нового объявления
-     * @param post объявление
-     * @param car автомобиль
+     *
+     * @param post   объявление
+     * @param car    автомобиль
      * @param engine двигатель
-     * @param file фото
+     * @param file   фото
      * @return возвращает страницу со списком всех объявлений
-     * @throws IOException
      */
     @PostMapping("/updatePost")
     public String updatePost(@ModelAttribute Post post,
@@ -166,8 +181,9 @@ public class PostController {
 
     /**
      * Метод обрабатывает GET-запрос на получение подробной информации по объявлению
-     * @param model модель
-     * @param id ID объявления
+     *
+     * @param model       модель
+     * @param id          ID объявления
      * @param httpSession сессия
      * @return возвращает страницу с подробной информацией по объявлению или ошибку 404
      */
@@ -186,6 +202,7 @@ public class PostController {
 
     /**
      * Метод обрабатывает POST-запрос на закрытие объявления
+     *
      * @param post объявление
      * @return возвращает страницу со списком всех объявлений
      */
@@ -200,8 +217,9 @@ public class PostController {
 
     /**
      * Метод обрабатывает GET-запрос на получение страницы с формой для редактирования объявления
+     *
      * @param model модель
-     * @param id ID объявления
+     * @param id    ID объявления
      * @return возвращает страницу с формой для редактирования объявления
      */
     @GetMapping("formModifyPost/{id}")
@@ -213,6 +231,7 @@ public class PostController {
 
     /**
      * Метод обрабатывает POST-запрос на удаление объявления
+     *
      * @param post объявление
      * @return возвращает страницу со списком всех объявлений
      */
@@ -222,11 +241,4 @@ public class PostController {
         postService.delete(postInDb);
         return "redirect:/posts";
     }
-
-    /**
-     * Метод создает объект истории цен по объявлению
-     * @param post объявление
-     * @return возвращает объект истории цен по объявлению
-     */
-
 }

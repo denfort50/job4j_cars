@@ -11,6 +11,7 @@ import java.util.Optional;
 
 /**
  * Класс представляет собой реализацию сервиса для доступа к хранилищу пользователей
+ *
  * @author Denis Kalchenko
  * @version 1.0
  */

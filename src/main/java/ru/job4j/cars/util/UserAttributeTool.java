@@ -16,7 +16,8 @@ public final class UserAttributeTool {
 
     /**
      * Метод добавляет атрибут - пользователя в модель
-     * @param model модель
+     *
+     * @param model       модель
      * @param httpSession сессия
      */
     public static void addAttributeUser(Model model, HttpSession httpSession) {
@@ -30,6 +31,7 @@ public final class UserAttributeTool {
 
     /**
      * Метод получает атрибут - пользователя
+     *
      * @param httpSession сессия
      * @return возвращает пользователя
      */

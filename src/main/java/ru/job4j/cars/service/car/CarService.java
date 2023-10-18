@@ -12,6 +12,7 @@ public interface CarService {
 
     /**
      * Метод сохраняет автомобиль
+     *
      * @param car автомобиль
      * @return возвращает автомобиль
      */
@@ -19,24 +20,28 @@ public interface CarService {
 
     /**
      * Метод обновляет автомобиль
+     *
      * @param car автомобиль
      */
     void update(Car car);
 
     /**
      * Метод удаляет автомобиль
+     *
      * @param car автомобиль
      */
     void delete(Car car);
 
     /**
      * Метод находит все автомобили
+     *
      * @return возвращает список всех автомобилей
      */
     List<Car> findAllOrderById();
 
     /**
      * Метод находит автомобиль по ID
+     *
      * @param carId идентификатор автомобиля
      * @return возвращает Optional автомобиля
      */

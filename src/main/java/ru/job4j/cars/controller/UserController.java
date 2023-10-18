@@ -16,6 +16,7 @@ import static ru.job4j.cars.util.UserAttributeTool.addAttributeUser;
 
 /**
  * Класс представляет собой контроллер для взаимодействия хранилища пользователей с представлениями
+ *
  * @author Denis Kalchenko
  * @version 1.0
  */
@@ -24,14 +25,17 @@ import static ru.job4j.cars.util.UserAttributeTool.addAttributeUser;
 @RequestMapping("/users")
 public class UserController {
 
-    /** Сервис, обеспечивающий доступ к хранилищу пользователей */
+    /**
+     * Сервис, обеспечивающий доступ к хранилищу пользователей
+     */
     private final UserService userService;
 
     /**
      * Метод обрабатывает GET-запрос на получение страницы для авторизации
-     * @param model модель
+     *
+     * @param model   модель
      * @param session сессия
-     * @param fail результат авторизации
+     * @param fail    результат авторизации
      * @return возвращает страницу для авторизации
      */
     @GetMapping("/loginPage")
@@ -44,8 +48,9 @@ public class UserController {
 
     /**
      * Метод обрабатывает POST-запрос на авторизацию пользователя
+     *
      * @param user пользователь
-     * @param req запрос
+     * @param req  запрос
      * @return возвращает страницу со списком всех объявлений, либо ошибку с информацией, что логин или пароль неверны
      */
     @PostMapping("/login")
@@ -61,6 +66,7 @@ public class UserController {
 
     /**
      * Метод обрабатывает GET-запрос на выход из аккаунта
+     *
      * @param session сессия
      * @return возвращает
      */
@@ -72,7 +78,8 @@ public class UserController {
 
     /**
      * Метод обрабатывает GET-запрос на получение формы с регистрацией
-     * @param model модель
+     *
+     * @param model   модель
      * @param session сессия
      * @return возвращает страницу со списком всех объявлений
      */
@@ -85,6 +92,7 @@ public class UserController {
 
     /**
      * Метод обрабатывает POST-запрос на регистрацию пользователя
+     *
      * @param user пользователь
      * @return возвращает страницу с информацией с успешной / неуспешной регистрацией
      */
@@ -99,7 +107,8 @@ public class UserController {
 
     /**
      * Метод обрабатывает GET-запрос на получение страницы с ошибкой регистрации
-     * @param model модель
+     *
+     * @param model   модель
      * @param session сессия
      * @return возвращает страницу с ошибкой регистрации
      */
@@ -111,7 +120,8 @@ public class UserController {
 
     /**
      * Метод обрабатывает GET-запрос на получение страницы с успешной регистрацией
-     * @param model модель
+     *
+     * @param model   модель
      * @param session сессия
      * @return возвращает страницу с успешной регистрацией
      */

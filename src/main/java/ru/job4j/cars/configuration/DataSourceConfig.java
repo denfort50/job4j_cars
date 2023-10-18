@@ -17,6 +17,7 @@ import javax.sql.DataSource;
 
 /**
  * Класс представляет собой конфигурацию ORM Hibernate
+ *
  * @author Denis Kalchenko
  * @version 1.0
  */
@@ -28,6 +29,7 @@ public class DataSourceConfig {
 
     /**
      * Метод создает объект SessionFactory для многократного использования в приложении
+     *
      * @return возвращает объект SessionFactory
      */
     @Bean(destroyMethod = "close")
@@ -39,6 +41,7 @@ public class DataSourceConfig {
 
     /**
      * Метод создает объект CrudRepository для взаимодействия с базой данных
+     *
      * @return возвращает объект CrudRepository
      */
     @Bean

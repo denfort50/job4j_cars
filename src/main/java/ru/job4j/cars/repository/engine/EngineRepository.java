@@ -12,6 +12,7 @@ public interface EngineRepository {
 
     /**
      * Метод сохраняет двигатель
+     *
      * @param engine двигатель
      * @return возвращает двигатель
      */
@@ -19,24 +20,28 @@ public interface EngineRepository {
 
     /**
      * Метод обновляет двигатель
+     *
      * @param engine двигатель
      */
     void update(Engine engine);
 
     /**
      * Метод удаляет двигатель
+     *
      * @param engine двигатель
      */
     void delete(Engine engine);
 
     /**
      * Метод находит все двигатели
+     *
      * @return возвращает список двигателей
      */
     List<Engine> findAllOrderById();
 
     /**
      * Метод находит двигатель по ID
+     *
      * @param engineId идентификатор двигателя
      * @return возвращает Optional двигателя
      */

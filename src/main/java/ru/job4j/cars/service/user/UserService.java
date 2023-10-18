@@ -12,6 +12,7 @@ public interface UserService {
 
     /**
      * Метод сохраняет пользователя
+     *
      * @param user пользователь
      * @return возвращает пользователя
      */
@@ -19,24 +20,28 @@ public interface UserService {
 
     /**
      * Метод обновляет пользователя
+     *
      * @param user пользователь
      */
     void update(User user);
 
     /**
      * Метод удаляет пользователя
+     *
      * @param user пользователь
      */
     void delete(User user);
 
     /**
      * Метод находит всех пользователей
+     *
      * @return возвращает пользователя
      */
     List<User> findAllOrderById();
 
     /**
      * Метод находит пользователя по ID
+     *
      * @param userId идентификатор пользователя
      * @return возвращает Optional пользователя
      */
@@ -44,6 +49,7 @@ public interface UserService {
 
     /**
      * Метод находит пользователей по части логина
+     *
      * @param key часть логина
      * @return возвращает список пользователей
      */
@@ -51,6 +57,7 @@ public interface UserService {
 
     /**
      * Метод находит пользователя по логину
+     *
      * @param login логин
      * @return возвращает Optional пользователя
      */
@@ -58,7 +65,8 @@ public interface UserService {
 
     /**
      * Метод находит пользователя по логину и паролю
-     * @param login логин
+     *
+     * @param login    логин
      * @param password пароль
      * @return возвращает Optional пользователя
      */

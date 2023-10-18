@@ -24,6 +24,7 @@ public class HibernateUserRepository implements UserRepository {
 
     /**
      * Сохранить в базе
+     *
      * @param user пользователь
      * @return пользователь с id
      */
@@ -34,6 +35,7 @@ public class HibernateUserRepository implements UserRepository {
 
     /**
      * Обновить в базе пользователя
+     *
      * @param user пользователь
      */
     public void update(User user) {
@@ -42,6 +44,7 @@ public class HibernateUserRepository implements UserRepository {
 
     /**
      * Удалить пользователя по id
+     *
      * @param user пользователь
      */
     public void delete(User user) {
@@ -50,6 +53,7 @@ public class HibernateUserRepository implements UserRepository {
 
     /**
      * Список пользователь отсортированных по id
+     *
      * @return список пользователей
      */
     public List<User> findAllOrderById() {
@@ -58,6 +62,7 @@ public class HibernateUserRepository implements UserRepository {
 
     /**
      * Найти пользователя по ID
+     *
      * @return пользователь
      */
     public Optional<User> findById(int userId) {
@@ -66,6 +71,7 @@ public class HibernateUserRepository implements UserRepository {
 
     /**
      * Список пользователей по login LIKE %key%
+     *
      * @param key key
      * @return список пользователей
      */
@@ -75,6 +81,7 @@ public class HibernateUserRepository implements UserRepository {
 
     /**
      * Найти пользователя по login
+     *
      * @param login login
      * @return Optional of user
      */
@@ -84,7 +91,8 @@ public class HibernateUserRepository implements UserRepository {
 
     /**
      * Найти пользователя по логину и паролю.
-     * @param login логин
+     *
+     * @param login    логин
      * @param password пароль
      * @return Optional of user.
      */

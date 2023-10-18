@@ -11,12 +11,14 @@ public interface BodyService {
 
     /**
      * Метод находит все кузова
+     *
      * @return возвращает список кузовов
      */
     List<Body> findAll();
 
     /**
      * Метод находит кузов по ID
+     *
      * @param id идентификатор
      * @return возвращает объект кузова
      */

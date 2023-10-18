@@ -1,20 +1,20 @@
 package ru.job4j.cars.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * Класс описывает модель данных - кузов
  */
 @Entity
 @Table(name = "bodies")
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @RequiredArgsConstructor
-@Data
 public class Body {
 
     @Id
@@ -25,4 +25,21 @@ public class Body {
     @NonNull
     @Column(name = "name")
     private String name;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Body body = (Body) o;
+        return id == body.id && name.equals(body.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
 }
