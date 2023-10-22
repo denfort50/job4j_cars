@@ -27,8 +27,6 @@ public class AuthFilter implements Filter {
      * @param chain    Provides access to the next filter in the chain for this
      *                 filter to pass the request and response to for further
      *                 processing
-     * @throws IOException
-     * @throws ServletException
      */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,

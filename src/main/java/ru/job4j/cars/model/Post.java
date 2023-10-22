@@ -1,14 +1,16 @@
 package ru.job4j.cars.model;
 
-import lombok.*;
+import lombok.NonNull;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Класс описывает модель данных - объявление
@@ -16,36 +18,26 @@ import java.util.Set;
  * @author Denis Kalchenko
  */
 @Entity
-@Table(name = "posts")
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @RequiredArgsConstructor
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Table(name = "posts")
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
-    @Column(name = "id")
     private int id;
 
     @NonNull
-    @EqualsAndHashCode.Include
-    @Column(name = "price")
     private int price;
 
     @NonNull
-    @EqualsAndHashCode.Include
-    @Column(name = "text")
     private String text;
 
-    @EqualsAndHashCode.Include
-    @Column(name = "created")
     private Timestamp created = Timestamp.valueOf(LocalDateTime.now());
 
-    @EqualsAndHashCode.Include
-    @Column(name = "status")
     private boolean status = false;
 
     @ManyToOne
@@ -72,6 +64,24 @@ public class Post {
 
     @Column(name = "photo")
     private byte[] photo;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Post post = (Post) o;
+        return id == post.id && price == post.price && status == post.status
+                && Objects.equals(text, post.text) && Objects.equals(created, post.created);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, price, text, created, status);
+    }
 
     public void addToPriceHistoryList(PriceHistory priceHistory) {
         priceHistoryList.add(priceHistory);

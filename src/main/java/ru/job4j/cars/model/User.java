@@ -1,6 +1,11 @@
 package ru.job4j.cars.model;
 
-import lombok.*;
+import lombok.NonNull;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -12,28 +17,25 @@ import java.util.List;
  * @author Denis Kalchenko
  */
 @Entity
-@Table(name = "users")
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @RequiredArgsConstructor
-@Data
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 
     @NonNull
-    @Column(name = "username")
     public String username;
 
     @NonNull
-    @Column(name = "login")
     private String login;
 
     @NonNull
-    @Column(name = "password")
     private String password;
 
     @OneToMany(mappedBy = "user")

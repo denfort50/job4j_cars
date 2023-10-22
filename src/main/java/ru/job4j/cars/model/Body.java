@@ -1,6 +1,11 @@
 package ru.job4j.cars.model;
 
-import lombok.*;
+import lombok.NonNull;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -11,21 +16,19 @@ import java.util.Objects;
  * @author Denis Kalchenko
  */
 @Entity
-@Table(name = "bodies")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @RequiredArgsConstructor
+@Table(name = "bodies")
 public class Body {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 
     @NonNull
-    @Column(name = "name")
     private String name;
 
     @Override

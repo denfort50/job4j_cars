@@ -1,10 +1,16 @@
 package ru.job4j.cars.model;
 
-import lombok.*;
+import lombok.NonNull;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -13,28 +19,22 @@ import java.util.Set;
  * @author Denis Kalchenko
  */
 @Entity
-@Table(name = "cars")
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @RequiredArgsConstructor
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Table(name = "cars")
 public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
-    @Column(name = "id")
     private int id;
 
     @NonNull
-    @EqualsAndHashCode.Include
-    @Column(name = "brand")
     private String brand;
 
     @NonNull
-    @EqualsAndHashCode.Include
-    @Column(name = "model")
     private String model;
 
     @ManyToOne
@@ -56,4 +56,21 @@ public class Car {
     @OneToOne(mappedBy = "car")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Post post;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Car car = (Car) o;
+        return id == car.id && Objects.equals(brand, car.brand) && Objects.equals(model, car.model);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, brand, model);
+    }
 }
