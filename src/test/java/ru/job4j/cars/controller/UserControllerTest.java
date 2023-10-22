@@ -3,7 +3,7 @@ package ru.job4j.cars.controller;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.Model;
 import ru.job4j.cars.model.User;
-import ru.job4j.cars.service.user.UserService;
+import ru.job4j.cars.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 

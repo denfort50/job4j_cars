@@ -1,4 +1,4 @@
-package ru.job4j.cars.repository.body;
+package ru.job4j.cars.repository;
 
 import ru.job4j.cars.model.Body;
 
@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * Интерфейс описывает методы взаимодействия с хранилищем кузовов
+ *
+ * @author Denis Kalchenko
  */
 public interface BodyRepository {
 

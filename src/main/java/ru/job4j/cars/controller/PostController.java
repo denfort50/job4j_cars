@@ -13,15 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import ru.job4j.cars.model.*;
-import ru.job4j.cars.service.body.BodyService;
-import ru.job4j.cars.service.car.CarService;
-import ru.job4j.cars.service.engine.EngineService;
-import ru.job4j.cars.service.post.PostService;
+import ru.job4j.cars.service.BodyService;
+import ru.job4j.cars.service.CarService;
+import ru.job4j.cars.service.EngineService;
+import ru.job4j.cars.service.PostService;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +30,6 @@ import static ru.job4j.cars.util.UserAttributeTool.getAttributeUser;
  * Класс представляет собой контроллер для обработки действий с объявлениями
  *
  * @author Denis Kalchenko
- * @version 1.0
  */
 @Controller
 @AllArgsConstructor
@@ -148,7 +145,6 @@ public class PostController {
      * @param file        фото
      * @param httpSession сессия
      * @return возвращает страницу со всеми объявлениями
-     * @throws IOException
      */
     @PostMapping("/createPost")
     public String createPost(@ModelAttribute Post post,

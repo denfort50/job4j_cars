@@ -1,4 +1,4 @@
-package ru.job4j.cars.repository.car;
+package ru.job4j.cars.repository;
 
 import ru.job4j.cars.model.Car;
 
@@ -7,6 +7,8 @@ import java.util.Optional;
 
 /**
  * Интерфейс описывает методы взаимодействия с хранилищем автомобилей
+ *
+ * @author Denis Kalchenko
  */
 public interface CarRepository {
 

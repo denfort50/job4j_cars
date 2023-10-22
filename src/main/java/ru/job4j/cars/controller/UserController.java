@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.cars.model.User;
-import ru.job4j.cars.service.user.UserService;
+import ru.job4j.cars.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,7 +18,6 @@ import static ru.job4j.cars.util.UserAttributeTool.addAttributeUser;
  * Класс представляет собой контроллер для взаимодействия хранилища пользователей с представлениями
  *
  * @author Denis Kalchenko
- * @version 1.0
  */
 @Controller
 @AllArgsConstructor

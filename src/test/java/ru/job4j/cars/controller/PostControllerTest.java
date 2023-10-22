@@ -3,18 +3,16 @@ package ru.job4j.cars.controller;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.Model;
 import ru.job4j.cars.model.*;
-import ru.job4j.cars.service.body.BodyService;
-import ru.job4j.cars.service.car.CarService;
-import ru.job4j.cars.service.engine.EngineService;
-import ru.job4j.cars.service.post.PostService;
+import ru.job4j.cars.service.BodyService;
+import ru.job4j.cars.service.CarService;
+import ru.job4j.cars.service.EngineService;
+import ru.job4j.cars.service.PostService;
 
 import javax.servlet.http.HttpSession;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class PostControllerTest {

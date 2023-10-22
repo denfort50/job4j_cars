@@ -1,4 +1,4 @@
-package ru.job4j.cars.repository.engine;
+package ru.job4j.cars.service;
 
 import ru.job4j.cars.model.Engine;
 
@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Интерфейс описывает методы взаимодействия с хранилищем двигателей
+ * Интерфейс описывает методы сервиса, через который происходит взаимодействие с хранилищем двигателей
+ *
+ * @author Denis Kalchenko
  */
-public interface EngineRepository {
+public interface EngineService {
 
     /**
      * Метод сохраняет двигатель

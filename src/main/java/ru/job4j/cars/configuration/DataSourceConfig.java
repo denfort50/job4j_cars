@@ -16,10 +16,9 @@ import ru.job4j.cars.repository.CrudRepositoryImpl;
 import javax.sql.DataSource;
 
 /**
- * Класс представляет собой конфигурацию ORM Hibernate
+ * Класс описывает конфигурацию ORM Hibernate
  *
  * @author Denis Kalchenko
- * @version 1.0
  */
 @Configuration
 @AllArgsConstructor
@@ -34,8 +33,7 @@ public class DataSourceConfig {
      */
     @Bean(destroyMethod = "close")
     public SessionFactory getSessionFactory() {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .configure().build();
+        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
         return new MetadataSources(registry).buildMetadata().buildSessionFactory();
     }
 

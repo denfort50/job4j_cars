@@ -12,6 +12,8 @@ import java.util.Set;
 
 /**
  * Класс описывает модель данных - объявление
+ *
+ * @author Denis Kalchenko
  */
 @Entity
 @Table(name = "posts")

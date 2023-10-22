@@ -1,4 +1,4 @@
-package ru.job4j.cars.repository.post;
+package ru.job4j.cars.repository;
 
 import ru.job4j.cars.model.Post;
 
@@ -7,6 +7,8 @@ import java.util.Optional;
 
 /**
  * Интерфейс описывает методы взаимодействия с хранилищем объявлений
+ *
+ * @author Denis Kalchenko
  */
 public interface PostRepository {
 

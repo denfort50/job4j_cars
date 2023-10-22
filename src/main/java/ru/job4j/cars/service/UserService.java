@@ -1,4 +1,4 @@
-package ru.job4j.cars.service.user;
+package ru.job4j.cars.service;
 
 import ru.job4j.cars.model.User;
 
@@ -7,6 +7,8 @@ import java.util.Optional;
 
 /**
  * Интерфейс описывает методы сервиса, через который происходит взаимодействие с хранилищем пользователей
+ *
+ * @author Denis Kalchenko
  */
 public interface UserService {
 

@@ -1,4 +1,4 @@
-package ru.job4j.cars.service.car;
+package ru.job4j.cars.service;
 
 import ru.job4j.cars.model.Car;
 
@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * * Интерфейс описывает методы сервиса, через который происходит взаимодействие с хранилищем автомобилей
+ * Интерфейс описывает методы сервиса, через который происходит взаимодействие с хранилищем автомобилей
+ *
+ * @author Denis Kalchenko
  */
 public interface CarService {
 

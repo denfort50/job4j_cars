@@ -1,4 +1,4 @@
-package ru.job4j.cars.service.body;
+package ru.job4j.cars.service;
 
 import ru.job4j.cars.model.Body;
 
@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * Интерфейс описывает методы сервиса, через который происходит взаимодействие с хранилищем кузовов
+ *
+ * @author Denis Kalchenko
  */
 public interface BodyService {
 

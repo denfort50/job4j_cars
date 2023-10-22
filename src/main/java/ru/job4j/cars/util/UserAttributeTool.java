@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Утилитный класс для добавления в модель атрибута - пользователь
+ *
+ * @author Denis Kalchenko
  */
 public final class UserAttributeTool {
 

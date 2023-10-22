@@ -4,16 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import ru.job4j.cars.configuration.TestDataSourceConfig;
 import ru.job4j.cars.model.*;
-import ru.job4j.cars.repository.body.BodyRepository;
-import ru.job4j.cars.repository.body.HibernateBodyRepository;
-import ru.job4j.cars.repository.car.CarRepository;
-import ru.job4j.cars.repository.car.HibernateCarRepository;
-import ru.job4j.cars.repository.engine.EngineRepository;
-import ru.job4j.cars.repository.engine.HibernateEngineRepository;
-import ru.job4j.cars.repository.post.HibernatePostRepository;
-import ru.job4j.cars.repository.post.PostRepository;
-import ru.job4j.cars.repository.user.HibernateUserRepository;
-import ru.job4j.cars.repository.user.UserRepository;
 
 import java.util.List;
 import java.util.Optional;

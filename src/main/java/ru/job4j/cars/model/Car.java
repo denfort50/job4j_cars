@@ -9,6 +9,8 @@ import java.util.Set;
 
 /**
  * Класс описывает модель данных - автомобиль
+ *
+ * @author Denis Kalchenko
  */
 @Entity
 @Table(name = "cars")

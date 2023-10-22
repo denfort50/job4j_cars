@@ -5,8 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.job4j.cars.configuration.TestDataSourceConfig;
 import ru.job4j.cars.model.User;
-import ru.job4j.cars.repository.user.HibernateUserRepository;
-import ru.job4j.cars.repository.user.UserRepository;
 
 import java.util.List;
 import java.util.Optional;

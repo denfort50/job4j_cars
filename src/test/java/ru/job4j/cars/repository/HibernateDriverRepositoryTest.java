@@ -5,10 +5,6 @@ import org.junit.jupiter.api.Test;
 import ru.job4j.cars.configuration.TestDataSourceConfig;
 import ru.job4j.cars.model.Driver;
 import ru.job4j.cars.model.User;
-import ru.job4j.cars.repository.driver.DriverRepository;
-import ru.job4j.cars.repository.driver.HibernateDriverRepository;
-import ru.job4j.cars.repository.user.HibernateUserRepository;
-import ru.job4j.cars.repository.user.UserRepository;
 
 import java.util.List;
 import java.util.Optional;

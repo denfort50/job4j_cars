@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * Класс описывает работу авторизационного фильтра
+ *
+ * @author Denis Kalchenko
  */
 @Component
 public class AuthFilter implements Filter {

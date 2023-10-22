@@ -8,6 +8,8 @@ import java.util.List;
 
 /**
  * Класс описывает модель данных - пользователь
+ *
+ * @author Denis Kalchenko
  */
 @Entity
 @Table(name = "users")

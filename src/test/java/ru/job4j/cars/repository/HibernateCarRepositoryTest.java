@@ -6,12 +6,6 @@ import ru.job4j.cars.configuration.TestDataSourceConfig;
 import ru.job4j.cars.model.Body;
 import ru.job4j.cars.model.Car;
 import ru.job4j.cars.model.Engine;
-import ru.job4j.cars.repository.body.BodyRepository;
-import ru.job4j.cars.repository.body.HibernateBodyRepository;
-import ru.job4j.cars.repository.car.CarRepository;
-import ru.job4j.cars.repository.car.HibernateCarRepository;
-import ru.job4j.cars.repository.engine.EngineRepository;
-import ru.job4j.cars.repository.engine.HibernateEngineRepository;
 
 import java.util.List;
 import java.util.Optional;

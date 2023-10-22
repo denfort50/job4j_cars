@@ -7,6 +7,8 @@ import java.sql.Timestamp;
 
 /**
  * Класс описывает модель данных - история цен
+ *
+ * @author Denis Kalchenko
  */
 @Entity
 @Table(name = "price_history")

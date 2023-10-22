@@ -6,6 +6,8 @@ import javax.persistence.*;
 
 /**
  * Класс описывает модель данных - двигатель
+ *
+ * @author Denis Kalchenko
  */
 @Entity
 @Table(name = "engines")

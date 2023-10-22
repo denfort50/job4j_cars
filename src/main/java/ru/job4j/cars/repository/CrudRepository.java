@@ -10,6 +10,8 @@ import java.util.function.Function;
 
 /**
  * Интерфейс описывает методы взаимодействия с базой данных
+ *
+ * @author Denis Kalchenko
  */
 public interface CrudRepository {
 

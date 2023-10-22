@@ -7,6 +7,8 @@ import java.util.Objects;
 
 /**
  * Класс описывает модель данных - кузов
+ *
+ * @author Denis Kalchenko
  */
 @Entity
 @Table(name = "bodies")

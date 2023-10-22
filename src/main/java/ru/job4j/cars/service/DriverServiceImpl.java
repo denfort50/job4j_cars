@@ -1,9 +1,9 @@
-package ru.job4j.cars.service.driver;
+package ru.job4j.cars.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.cars.model.Driver;
-import ru.job4j.cars.repository.driver.DriverRepository;
+import ru.job4j.cars.repository.DriverRepository;
 
 import java.util.List;
 import java.util.Optional;
