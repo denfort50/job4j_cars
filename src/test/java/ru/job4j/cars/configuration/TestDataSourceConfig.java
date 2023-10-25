@@ -22,6 +22,7 @@ import java.util.Properties;
 
 /**
  * Класс представляет собой конфигурацию ORM Hibernate
+ *
  * @author Denis Kalchenko
  * @version 1.0
  */
@@ -30,9 +31,9 @@ import java.util.Properties;
 public class TestDataSourceConfig {
 
 
-
     /**
      * Метод создает объект SessionFactory для многократного использования в приложении
+     *
      * @return возвращает объект SessionFactory
      */
     @Bean(destroyMethod = "close")

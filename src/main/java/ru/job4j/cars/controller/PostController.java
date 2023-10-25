@@ -128,7 +128,7 @@ public class PostController {
     public String addPost(Model model) {
         model.addAttribute("post",
                 new Post(0, "Текст",
-                        new User("Имя", "Логин", "Пароль"),
+                        new User("Логин", "Пароль"),
                         new Car("Марка", "Модель",
                                 new Body("Кузов"),
                                 new Engine("Двигатель"))));

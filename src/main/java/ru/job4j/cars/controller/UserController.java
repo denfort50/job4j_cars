@@ -84,7 +84,8 @@ public class UserController {
      */
     @GetMapping("/addUser")
     public String addUser(Model model, HttpSession session) {
-        model.addAttribute("newUser", new User(0, "Имя", "Логин", "Пароль", new ArrayList<>(), new ArrayList<>()));
+        model.addAttribute("newUser", new User(0, "Логин", "Пароль",
+                new ArrayList<>(), new ArrayList<>()));
         addAttributeUser(model, session);
         return "user/addUser";
     }

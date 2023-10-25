@@ -1,6 +1,7 @@
 INSERT INTO bodies (name) VALUES ('седан');
 INSERT INTO bodies (name) VALUES ('хэтчбэк');
 INSERT INTO bodies (name) VALUES ('лифтбэк');
+INSERT INTO bodies (name) VALUES ('спортбэк');
 INSERT INTO bodies (name) VALUES ('универсал');
 INSERT INTO bodies (name) VALUES ('минивэн');
 INSERT INTO bodies (name) VALUES ('купэ');

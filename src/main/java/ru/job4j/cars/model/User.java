@@ -30,9 +30,6 @@ public class User {
     private int id;
 
     @NonNull
-    public String username;
-
-    @NonNull
     private String login;
 
     @NonNull
